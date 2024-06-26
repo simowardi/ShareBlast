@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShareBlast - Create Giveaway</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <ul>
+                    <li><a href="/ShareBlast/templates/">Home</a></li>
+                    <li><a href="/ShareBlast/login.html">Login</a></li>
+                    <li><a href="/ShareBlast/signup_user.html">Sign Up (User)</a></li>
+                    <li><a href="/ShareBlast/signup_publisher.html">Sign Up (Publisher)</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1 class="text-center fade-in">Create a New Giveaway</h1>
+            <form id="create-giveaway-form" class="form fade-in">
+                <label for="giveaway-title">Giveaway Title:</label>
+                <input type="text" id="giveaway-title" name="giveaway-title" required>
+
+                <label for="giveaway-description">Description:</label>
+                <textarea id="giveaway-description" name="giveaway-description" required></textarea>
+
+                <label for="giveaway-image">Giveaway Image:</label>
+                <input type="file" id="giveaway-image" name="giveaway-image" accept="image/*" required>
+
+                <label for="end-date">End Date:</label>
+                <input type="datetime-local" id="end-date" name="end-date" required>
+
+                <button type="submit" class="btn mt-1">Create Giveaway</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ShareBlast. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/create_giveaway.js"></script>
+</body>
+</html>
