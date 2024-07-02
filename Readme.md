@@ -1,21 +1,27 @@
 # ShareBlast
-
-ShareBlast is a webapp that allows users to send a blast of messages to multiple contacts. 
-
+ 
+ ShareBlast is a web application that allows users to create and trake giveaways. 
+ The app is built using Flask and sqlalchemy for the backend, and html/css/js for the frontend.
+ 
 ## Features
-
-- Send a blast of messages to multiple contacts
-- Customize the message to be sent
-
+ 
+ - create giveaway easy
+ - set a timer for the giveaway
+ - View the giveaway entry
+ 
 ## Installation
-
-1. Clone the repository
-2. Open the project in Xcode
-3. Build and run the project
+ 
+ 1. Clone the repository
+ 2. Install Python 3.6 or higher
+ 3. Install Flask and mysql
+ 4. Open the project in vscode
+ 5. Build and run the project
 
 ## Usage
-
-1. Open the app
-2. Tap the "Add Contacts" button to add contacts to the blast
-3. Customize the message you want to send to the contacts
-4. Tap the "Send Blast" button to send the messages
+ 
+ 1. Open the app
+ 2. Tap the "Sign Up" button to vecame a user
+ 3. Customize and create the giveaway you want
+ 4. grab the giveaway link and share it to social media
+ 5. set the day and time to end the giveawy 
+ 6. View the status of the giveaway (view, entry )
