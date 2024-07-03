@@ -1,32 +1,43 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, session
 from models.user import User
-from models.publisher import Publisher
-from app import db
+from . import db
 
-bp = Blueprint('auth', __name__)
+auth_bp = Blueprint('auth', __name__)
 
-@bp.route('/login', methods=['GET', 'POST'])
+
+auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        # Implement login logic here
-        pass
+        # Handle login logic
+        username = request.form['username']
+        password = request.form['password']
+        user = User.query.filter_by(username=username).first()
+
+        if user and user.password == password:
+            session['user_id'] = user.id
+                return redirect(url_for('account.html'))
+        else:
+                return render_template('login.html', error='Invalid username or password')
+
     return render_template('login.html')
 
-@bp.route('/signup/user', methods=['GET', 'POST'])
-def signup_user():
-    if request.method == 'POST':
-        # Implement user signup logic here
-        pass
-    return render_template('signup_user.html')
 
-@bp.route('/signup/publisher', methods=['GET', 'POST'])
-def signup_publisher():
+@auth_bp.route('/register', methods=['GET', 'POST'])
+def register():
     if request.method == 'POST':
-        # Implement publisher signup logic here
-        pass
-    return render_template('signup_publisher.html')
+        # Handle registration logic
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
 
-@bp.route('/logout')
-def logout():
-    # Implement logout logic here
-    pass
+        new_user = User(username=username, email=email, password=password)
+        db.session.add(new_user)
+        db.session.commit()
+        
+        # Optionally, set session or login user directly after registration
+        session['user_id'] = new_user.id
+
+        # Redirect to account page after registration
+        return redirect(url_for('account.html'))
+
+    return render_template('signup.html')
