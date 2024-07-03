@@ -3,39 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShareBlast - Giveaway Details</title>
+    <title>ShareBlast - Giveaway</title>
     <link rel="stylesheet" href="/static/css/styles.css">
 </head>
-
-<body style="background-color: #4341ec;">
-	<header>
-		<div style="background-color: #7f0fe8 !important; text-align: center; height: 80px; display: flex; align-items: center; justify-content: center; padding: 10px;" class="menu">
-			<a style="color: aliceblue; margin-right: 10px; font-size: xx-large;" href="/ShareBlast/templates/">Home</a>
-		</div>
-	</header>
-
-    <main>
-        <div class="container">
-            <h1 class="text-center fade-in">Giveaway Details</h1>
-            <div class="giveaway-details fade-in">
-                <img src="/static/images/placeholder.jpg" alt="Giveaway item" class="giveaway-image">
-                <h2 class="text-center">Amazing Prize Giveaway</h2>
-                <p class="text-center">Description of the amazing prize and giveaway details.</p>
-                <p class="text-center">Time remaining: <span id="countdown">2 days, 5 hours</span></p>
-                <div class="text-center mt-1">
-                    <button id="enter-giveaway" class="btn">Enter Giveaway</button>
-                </div>
+<body>
+    <div class="container">
+        <div class="giveaway-details">
+            <h1 class="text-center" id="giveaway-title"></h1>
+            <img src="" alt="Giveaway item" class="giveaway-image" id="giveaway-image">
+            <p id="giveaway-description"></p>
+            <p class="text-center">Time remaining: <span id="countdown">2 days, 5 hours</span></p>
+            <div class="text-center mt-1">
+                <button id="enter-giveaway" class="btn">Enter Giveaway</button>
             </div>
         </div>
-    </main>
+    </div>
 
-    <footer>
-        <div style="background-color: #7f0fe8 !important; text-align: center; height: 80px; display: flex; align-items: center; justify-content: center; padding: 10px;" class="container">
-            <p>&copy; 2024 ShareBlast. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="/static/js/main.js"></script>
     <script src="/static/js/giveaway.js"></script>
+    <script>
+        const giveawayId = window.location.search.split('=')[1];
+        fetch(`/giveaway/${giveawayId}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('giveaway-title').textContent = data.title;
+                document.getElementById('giveaway-image').src = data.image_url;
+                document.getElementById('giveaway-description').textContent = data.description;
+                let countdownElement = document.getElementById('countdown');
+                let enterGiveawayButton = document.getElementById('enter-giveaway');
+                let endDate = new Date(data.end_date);
+                let timeLeft = (endDate - Date.now()) / 1000;
+                updateCountdown(countdownElement, timeLeft);
+                enterGiveawayButton.addEventListener('click', function() {
+                    // TODO: Implement actual giveaway entry logic in future versions
+                    alert('You have entered the giveaway! Good luck!');
+                });
+            })
+            .catch(error => console.error(error));
+    </script>
 </body>
 </html>
