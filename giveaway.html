@@ -4,22 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShareBlast - Giveaway</title>
-    <link rel="stylesheet" href="/static/css/giveaway.css">
+    <link rel="stylesheet" href="/src/css/account.css">
 </head>
 <body>
+
+	<header>
+		<nav>
+		  <div>
+			<a href="/index.html">Home</a>
+			<a href="/account.html">My Account</a>
+		  </div>
+		</nav>
+	  </header>
+
     <div class="container">
         <div class="giveaway-details">
-            <h1 class="text-center" id="giveaway-title"></h1>
-            <img src="" alt="Giveaway item" class="giveaway-image" id="giveaway-image">
-            <p id="giveaway-description"></p>
-            <p class="text-center">Time remaining: <span id="countdown">2 days, 5 hours</span></p>
+            <h1 class="text-center">{{ giveaway.title }}</h1>
+            <img src="{{ giveaway.image_url }}" alt="Giveaway item" class="giveaway-image">
+            <p>{{ giveaway.description }}</p>
+            <p class="text-center">Time remaining: <span id="countdown">{{ giveaway.end_date }}</span></p>
             <div class="text-center mt-1">
-                <button id="enter-giveaway" class="btn">Enter Giveaway</button>
+                <form action="{{ url_for('giveaway.enter_giveaway', giveaway_id=giveaway.id) }}" method="POST">
+                    <button type="submit" class="btn">Enter Giveaway</button>
+                </form>
             </div>
         </div>
     </div>
 
-    <script src="/static/js/giveaway.js"></script>
-    <script script src="/src/js/giveaway.js"></script>
+	<footer>
+		<p>&copy; 2024 ShareBlast. All rights reserved.</p>
+		<p>
+		  <a href="/TOS.html">Terms of Service</a> |
+		  <a href="/privacy.html">Privacy Policy</a> |
+		</p>
+	</footer>
+
+    <script src="/src/js/giveaway.js"></script>
+
 </body>
 </html>

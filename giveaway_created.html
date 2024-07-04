@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Giveaway Created - ShareBlast</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/css/activegiveaways.css">
+
+</head>
+
+<header>
+	<nav>
+	  <div>
+		<a href="/">Home</a>
+		<a href="/activegiveaways.html">Explore</a>
+		<a href="/account.html">My Account</a>
+		<a href="/create_giveaway.html" class="cta-button">create_giveaway</a>
+	  </div>
+	  <div>
+		<a href="/logout">Logout</a>
+	  </div>
+	</nav>
+</header>
+
+<body>
+    <div class="container">
+        <div class="giveaway-created">
+            <h1>Giveaway Created Successfully!</h1>
+            <p>Your giveaway has been created. You can view it using the link below:</p>
+            <div class="giveaway-link-box">
+                <input type="text" id="giveaway-link" value="{{ url_for('giveaway.view_giveaway', giveaway_id=giveaway_id, _external=True) }}" readonly>
+                <button onclick="copyLink()">Copy</button>
+            </div>
+        </div>
+    </div>
+
+	<footer>
+		<p>&copy; 2024 ShareBlast. All rights reserved.</p>
+		<p>
+		  <a href="/TOS.html">Terms of Service</a> |
+		  <a href="/privacy.html">Privacy Policy</a> |
+		</p>
+	</footer>
+
+    <script>
+        function copyLink() {
+            var link = document.getElementById("giveaway-link");
+            link.select();
+            link.setSelectionRange(0, 99999); // For mobile devices
+            document.execCommand("copy");
+
+            // Optionally, you can show a confirmation message
+            alert("Link copied to clipboard!");
+        }
+    </script>
+</body>
+</html>

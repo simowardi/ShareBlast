@@ -21,6 +21,16 @@ app.register_blueprint(giveaway_bp)
 app.register_blueprint(account_bp)
 
 
+@app.route('/')
+def index():
+    """
+    Renders the 'index.html' template upon accessing the root route ('/').
+    Returns:
+        The rendered 'index.html' template.
+    """
+    return render_template('index.html')
+
+
 # Initialize database tables
 with app.app_context():
     db.create_all()

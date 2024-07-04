@@ -1,18 +1,27 @@
-const giveawayId = window.location.search.split('=')[1];
-fetch(`/giveaway/${giveawayId}`)
-	.then(response => response.json())
-	.then(data => {
-		document.getElementById('giveaway-title').textContent = data.title;
-		document.getElementById('giveaway-image').src = data.image_url;
-		document.getElementById('giveaway-description').textContent = data.description;
-		let countdownElement = document.getElementById('countdown');
-		let enterGiveawayButton = document.getElementById('enter-giveaway');
-		let endDate = new Date(data.end_date);
-		let timeLeft = (endDate - Date.now()) / 1000;
-		updateCountdown(countdownElement, timeLeft);
-		enterGiveawayButton.addEventListener('click', function() {
-			// TODO: Implement actual giveaway entry logic in future versions
-			alert('You have entered the giveaway! Good luck!');
-		});
-	})
-	.catch(error => console.error(error));
+// static/js/giveaway.js
+
+// Logic to handle countdown timer and other client-side interactions
+
+document.addEventListener('DOMContentLoaded', function() {
+    const countdownElement = document.getElementById('countdown');
+    const endDate = new Date(countdownElement.textContent);
+
+    function updateCountdown() {
+        const now = new Date();
+        const diff = endDate - now;
+
+        if (diff <= 0) {
+            countdownElement.textContent = "This giveaway has ended.";
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        countdownElement.textContent = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+    }
+
+    setInterval(updateCountdown, 1000);
+});

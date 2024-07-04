@@ -2,6 +2,11 @@ from flask import Blueprint, render_template
 
 bp = Blueprint('main', __name__)
 
-@bp.route('/')
+@bp.route('/acount')
 def index():
-    return render_template('index.html')
++    """
++    Renders the 'account.html' template upon accessing the '/account' route.
++    No parameters are passed to this function.
++    Returns the rendered 'account.html' template.
++    """
+    return render_template('account.html')
