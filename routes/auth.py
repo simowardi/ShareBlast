@@ -33,7 +33,7 @@ def login():
 
         if user and user.password == password:
             session['user_id'] = user.id
-            return redirect(url_for('account'))
+            return redirect(url_for('account.account'))
         else:
             return render_template('login.html', error='Invalid username or password')
 
@@ -74,7 +74,7 @@ def register():
         session['user_id'] = new_user.id
 
         # Redirect to account page after registration
-        return redirect(url_for('account'))
+        return redirect(url_for('account.account'))
 
     return render_template('signup.html')
 
