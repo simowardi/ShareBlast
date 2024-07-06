@@ -4,6 +4,11 @@ from routes import auth_bp, giveaway_bp, account_bp
 import os
 
 app = Flask(__name__)
+login_manager = LoginManager(app)
+
+
+login_manager.login_view = 'auth.login'
+login_manager.login_message = 'Please log in to access this page.'
 
 
 app.config['SECRET_KEY'] = os.environ.get('az12', '123456789AZERTYUIOP')
