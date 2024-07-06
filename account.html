@@ -24,34 +24,47 @@
 <div class="container">
   <main>
     <section class="profile-info">
-      <img src="https://websim.ai/default-avatar.png" alt="User Avatar" class="profile-avatar">
+      <img src="https://files.catbox.moe/9h4nqs.jpg" alt="User Avatar" class="profile-avatar">
       <div class="profile-details">
-        <h2>Welcome, John Doe</h2>
-        <p>Member since: June 1, 2023</p>
-        <p>Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d5bfbabdbbfbb1bab095b0adb4b8a5b9b0fbb6bab8">[email&#160;protected]</a></p>
+		<h2>Welcome, {{ user.name }}</h2>
+		<p>Member since: {{ user.created_at.strftime('%B %d, %Y') }}</p>
+		<p>Email: {{ user.email }}</p>
       </div>
     </section>
 
     <a href="/create_giveaway.html" class="create-giveaway-btn">Create Giveaway Now</a>
 
-    <section class="stats-grid">
-      <div class="stat-card">
-        <h3>Total Giveaways</h3>
-        <p>0</p>
-      </div>
-      <div class="stat-card">
-        <h3>Active Giveaways</h3>
-        <p>0</p>
-      </div>
-      <div class="stat-card">
-        <h3>Participants</h3>
-        <p>0</p>
-      </div>
-      <div class="stat-card">
-        <h3>Prizes Awarded</h3>
-        <p>0</p>
-      </div>
-    </section>
+	<section class="stats-grid">
+		<div class="stat-card">
+			<h3>Total Giveaways</h3>
+			<p>{{ total_giveaways }}</p>
+		</div>
+		<div class="stat-card">
+			<h3>Active Giveaways</h3>
+			<p>{{ active_giveaways }}</p>
+		</div>
+		<div class="stat-card">
+			<h3>Participants</h3>
+			<p>{{ participants }}</p>
+		</div>
+		<div class="stat-card">
+			<h3>Prizes Awarded</h3>
+			<p>{{ prizes_awarded }}</p>
+		</div>
+	</section>
+
+	<section class="user-giveaways">
+		<h3>Your Giveaways</h3>
+		<ul>
+			{% for giveaway in user.giveaways %}
+			<li>
+				<a href="{{ url_for('giveaway.view_giveaway', giveaway_id=giveaway.id) }}">{{ giveaway.title }}</a>
+				<p>{{ giveaway.description }}</p>
+			</li>
+			{% endfor %}
+		</ul>
+	</section>
+
   </main>
 </div>
 

@@ -1,19 +1,12 @@
-# models/__init__.py
+# routes/__init__.py
+from flask import Blueprint
 
-from flask_sqlalchemy import SQLAlchemy
+# Initialize the blueprints
+auth_bp = Blueprint('auth', __name__)
+giveaway_bp = Blueprint('giveaway', __name__)
+account_bp = Blueprint('account', __name__)
 
-db = SQLAlchemy()
-
-def init_app(app):
-    """
-    Initializes the Flask application with the database.
-     
-    Parameters:
-        app (Flask): The Flask application to initialize.
-
-    Returns:
-        None
-    """
-    db.init_app(app)
-    with app.app_context():
-        db.create_all()
+# Import routes to register them with blueprints
+from . import auth
+from . import giveaway
+from . import account

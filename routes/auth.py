@@ -33,7 +33,7 @@ def login():
 
         if user and user.password == password:
             session['user_id'] = user.id
-            return redirect(url_for('account.html'))
+            return redirect(url_for('account.account'))
         else:
             return render_template('login.html', error='Invalid username or password')
 
@@ -74,9 +74,10 @@ def register():
         session['user_id'] = new_user.id
 
         # Redirect to account page after registration
-        return redirect(url_for('account.html'))
+        return redirect(url_for('account.account'))
 
     return render_template('signup.html')
+
 
 @auth_bp.route('/logout')
 def logout():
@@ -86,4 +87,4 @@ def logout():
     # Clear the session
     session.clear()
     # Redirect to home page or login page
-    return redirect(url_for('home'))
+    return redirect(url_for('index'))

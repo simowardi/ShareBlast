@@ -6,6 +6,7 @@ db = SQLAlchemy()
 # Import your models
 from .user import User
 from .giveaway import Giveaway
+from .participation import Participation
 
 # Optionally, add more models here as your project grows
 
