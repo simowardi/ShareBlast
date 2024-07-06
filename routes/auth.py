@@ -71,8 +71,7 @@ def register():
         existing_user = User.query.filter_by(email=email).first()
         if existing_user:
             return render_template('signup.html', error="Email already registered")
-
-		hashed_password = generate_password_hash(password)
+        hashed_password = generate_password_hash(password)
 
         new_user = User(username=username, email=email, password=password)
         db.session.add(new_user)
