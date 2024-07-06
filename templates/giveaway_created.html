@@ -11,16 +11,16 @@
 <header>
 	<nav>
 	  <div>
-		<a href="/">Home</a>
-		<a href="/activegiveaways">Explore</a>
-		<a href="/account">My Account</a>
-		<a href="/create_giveaway" class="cta-button">create_giveaway</a>
+		<a href="{{ url_for('/index') }}">Home</a>
+		<a href="{{ url_for('activegiveaways') }}">Explore</a>
+		<a href="{{ url_for('account') }}">My Account</a>
+		<a href="{{ url_for('create_giveaway') }}" class="cta-button">create_giveaway</a>
 	  </div>
 	  <div>
-		<a href="/logout">Logout</a>
+		<a href="{{ url_for('logout') }}">Logout</a>
 	  </div>
 	</nav>
-</header>
+  </header>
 
 <body>
     <div class="container">
