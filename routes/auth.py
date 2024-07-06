@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, sessio
 from models.user import User
 from models import db
 from werkzeug.security import generate_password_hash
-
+from flask_login import login_user
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -33,7 +33,7 @@ def login():
         user = User.query.filter_by(username=username).first()
 
         if user and user.password == password:
-            session['user_id'] = user.id
+            login_user(user)
             return redirect(url_for('account.account'))
         else:
             return render_template('login.html', error='Invalid username or password')
@@ -71,14 +71,15 @@ def register():
         existing_user = User.query.filter_by(email=email).first()
         if existing_user:
             return render_template('signup.html', error="Email already registered")
+
         hashed_password = generate_password_hash(password)
 
         new_user = User(username=username, email=email, password=password)
         db.session.add(new_user)
         db.session.commit()
-        
-        # Optionally, set session or login user directly after registration
-        session['user_id'] = new_user.id
+
+        # Log in the user directly after registration
+        login_user(new_user)
 
         # Redirect to account page after registration
         return redirect(url_for('account.account'))
@@ -89,9 +90,9 @@ def register():
 @auth_bp.route('/logout')
 def logout():
     """
-    Clears the session and redirects to the home page or login page.
+    Clears the session and logs out the user.
     """
     # Clear the session
-    session.clear()
+    logout_user()
     # Redirect to home page or login page
     return redirect(url_for('index'))

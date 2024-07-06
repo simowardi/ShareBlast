@@ -6,11 +6,10 @@ from flask_login import LoginManager
 
 
 app = Flask(__name__)
-login_manager = LoginManager(app)
 
 
-login_manager.login_view = 'auth.login'
-login_manager.login_message = 'Please log in to access this page.'
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 
 app.config['SECRET_KEY'] = os.environ.get('az12', '123456789AZERTYUIOP')
@@ -29,6 +28,11 @@ init_app(app)
 app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(giveaway_bp, url_prefix='/giveaway')
 app.register_blueprint(account_bp, url_prefix='/account')
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 @app.route('/')

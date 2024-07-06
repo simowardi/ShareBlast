@@ -4,6 +4,12 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 
+# Import your models
+from .user import User
+from .giveaway import Giveaway
+from .participation import Participation
+
+
 # Function to initialize app with SQLAlchemy
 def init_app(app):
     """
@@ -16,9 +22,3 @@ def init_app(app):
     db.init_app(app)
     with app.app_context():
         db.create_all()
-
-
-# Import your models
-from .user import User
-from .giveaway import Giveaway
-from .participation import Participation

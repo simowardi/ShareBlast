@@ -1,8 +1,9 @@
 from datetime import datetime
 from . import db
+from flask_login import UserMixin
 
 
-class Participation(db.Model):
+class Participation(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     giveaway_id = db.Column(db.Integer, db.ForeignKey('giveaway.id'), nullable=False)
@@ -12,5 +13,4 @@ class Participation(db.Model):
     giveaway = db.relationship('Giveaway', backref=db.backref('participations', lazy=True))
 
     def __repr__(self):
-        return f'<Participation user_id={self.user_id} giveaway_id={self.giveaway_id}>'
-
+        return f'<User id={self.id}>'
