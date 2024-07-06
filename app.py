@@ -2,6 +2,8 @@ from flask import Flask, render_template
 from models import db, init_app
 from routes import auth_bp, giveaway_bp, account_bp
 import os
+from flask_login import LoginManager
+
 
 app = Flask(__name__)
 login_manager = LoginManager(app)
