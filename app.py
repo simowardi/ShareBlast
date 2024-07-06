@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from models import init_app, db
+from models import db, init_app
 from routes import auth_bp, giveaway_bp, account_bp
 
 

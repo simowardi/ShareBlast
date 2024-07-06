@@ -1,7 +1,5 @@
-from app import db
+from . import db
 from datetime import datetime
-
-db = SQLAlchemy()
 
 
 class Giveaway(db.Model):
