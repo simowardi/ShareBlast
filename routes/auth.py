@@ -3,6 +3,7 @@ from models.user import User
 from models import db
 from werkzeug.security import generate_password_hash
 
+
 auth_bp = Blueprint('auth', __name__)
 
 
@@ -72,6 +73,7 @@ def register():
             return render_template('signup.html', error="Email already registered")
 
 		hashed_password = generate_password_hash(password)
+
         new_user = User(username=username, email=email, password=password)
         db.session.add(new_user)
         db.session.commit()
