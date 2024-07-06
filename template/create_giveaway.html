@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <title>ShareBlast - Create and Share Your Giveaways!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="src/css/activegiveaways.css">
+    <link rel="stylesheet" href="/static/css/activegiveaways.css">
 </head>
 
 <body>
-	
-
 	<header>
 		<nav>
 		  <div>
@@ -46,13 +44,13 @@
         </form>
     </div>
 
-    <footer>
-        <p>&copy; 2024 ShareBlast. All rights reserved.</p>
-        <p>
-            <a href="/TOS.html">Terms of Service</a> |
-            <a href="/privacy.html">Privacy Policy</a>
-        </p>
-    </footer>
+	<footer>
+		<p>&copy; 2024 ShareBlast. All rights reserved.</p>
+		<p>
+			<a href="{{ url_for('static', filename='TOS.html') }}">Terms of Service</a>
+			<a href="{{ url_for('static', filename='privacy.html') }}">Privacy Policy</a>			
+		</p>
+	</footer>
     
     <script src="/static/js/create_giveaway.js"></script>
 </body>

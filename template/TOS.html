@@ -4,12 +4,12 @@
     	<meta charset="UTF-8">
 	    <title>ShareBlast - Supercharge Your Social Media Giveaways</title>
     	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="src/css/tos.css">
+		<link rel="stylesheet" href="/static/css/tos.css">
 	</head>	  
 	<body>
 	  <header>
 		<nav>
-		  <a href="/index.html" class="logo">ShareBlast</a>
+		  <a href="/index" class="logo">ShareBlast</a>
 		</nav>
 	  </header>
 	
@@ -65,8 +65,8 @@
 	  <footer>
 		<p>&copy; 2024 ShareBlast. All rights reserved.</p>
 		<p>
-		  <a href="/TOS.html">Terms of Service</a> |
-		  <a href="/privacy.html">Privacy Policy</a> |
+			<a href="{{ url_for('static', filename='TOS.html') }}">Terms of Service</a>
+			<a href="{{ url_for('static', filename='privacy.html') }}">Privacy Policy</a>			
 		</p>
 	</footer>
 

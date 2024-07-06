@@ -3,16 +3,16 @@
 		<meta charset="UTF-8">
 	    <title>Active Giveaways - GiveawaySimle</title>
     	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="src/css/activegiveaways.css">
+		<link rel="stylesheet" href="/static/css/activegiveaways.css">
 	</head>
 <body>
 	<header>
 		<nav>
 		  <div>
 			<a href="/">Home</a>
-			<a href="/activegiveaways.html">Explore</a>
-			<a href="/account.html">My Account</a>
-			<a href="/create_giveaway.html" class="cta-button">create_giveaway</a>
+			<a href="/activegiveaways">Explore</a>
+			<a href="/account">My Account</a>
+			<a href="/create_giveaway" class="cta-button">create_giveaway</a>
 		</div>
 		  <div>
 			<a href="/logout">Logout</a>
@@ -119,8 +119,8 @@
 <footer>
 	<p>&copy; 2024 ShareBlast. All rights reserved.</p>
 	<p>
-	  <a href="/TOS.html">Terms of Service</a> |
-	  <a href="/privacy.html">Privacy Policy</a> |
+		<a href="{{ url_for('static', filename='TOS.html') }}">Terms of Service</a>
+		<a href="{{ url_for('static', filename='privacy.html') }}">Privacy Policy</a>			
 	</p>
 </footer>
 

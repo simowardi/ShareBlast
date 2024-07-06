@@ -31,10 +31,27 @@ def index():
     return render_template('index.html')
 
 
-# Initialize database tables
-with app.app_context():
-    db.create_all()
+@app.route('/TOS.html')
+def terms_of_service():
+    """
+    Renders the 'TOS.html' template upon accessing '/TOS.html'.
+    """
+    return render_template('TOS.html')
 
 
+@app.route('/privacy.html')
+def privacy_policy():
+    """
+    Renders the 'privacy.html' template upon accessing '/privacy.html'.
+    """
+    return render_template('privacy.html')
+
+
+# Only initialize database tables if running as the main application
 if __name__ == '__main__':
+    # Create database tables if they do not exist
+    with app.app_context():
+        db.create_all()
+    
+    # Run the Flask application
     app.run(debug=True)

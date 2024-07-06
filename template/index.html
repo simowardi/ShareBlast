@@ -10,7 +10,7 @@
 	<body>
 	  <header>
 		<nav>
-			<a href="/ShareBlast/index.html" class="logo">ShareBlast</a>
+			<a href="/" class="logo">ShareBlast</a>
 		  <ul>
 			<li><a href="#features">Features</a></li>
 			<li><a href="#about">About</a></li>
@@ -94,8 +94,8 @@
 	<footer>
 		<p>&copy; 2024 ShareBlast. All rights reserved.</p>
 		<p>
-		  <a href="/TOS.htm">Terms of Service</a> |
-		  <a href="/privacy.html">Privacy Policy</a> |
+			<a href="{{ url_for('static', filename='TOS.html') }}">Terms of Service</a>
+			<a href="{{ url_for('static', filename='privacy.html') }}">Privacy Policy</a>			
 		</p>
 	</footer>
 
