@@ -1,9 +1,12 @@
 from flask import Flask, render_template
 from models import db, init_app
 from routes import auth_bp, giveaway_bp, account_bp
-
+import os
 
 app = Flask(__name__)
+
+
+app.config['SECRET_KEY'] = os.environ.get('az12', '123456789AZERTYUIOP')
 
 
 # Configure SQLAlchemy
