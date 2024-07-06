@@ -6,7 +6,7 @@ from models import db
 auth_bp = Blueprint('auth', __name__)
 
 
-auth_bp.route('/login', methods=['GET', 'POST'])
+@auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     """
     This function is responsible for handling the login process.
