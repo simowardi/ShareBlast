@@ -28,6 +28,9 @@ def login():
     - If the request method is 'POST' and the login is unsuccessful, it renders the login page with an error message.
     - If the request method is not 'POST', it renders the login page.
     """
+    if current_user.is_authenticated:
+        return redirect(url_for('account.account'))
+
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -62,6 +65,9 @@ def register():
     - If the request method is 'POST' and the registration is successful, it redirects to the account page.
     - If the request method is not 'POST', it renders the 'signup.html' template for the registration form.
     """
+    if current_user.is_authenticated:
+        return redirect(url_for('account.account'))
+
     if request.method == 'POST':
         # Handle registration logic
         username = request.form['username']
