@@ -10,7 +10,7 @@
 	  <div class="container">
 		<div class="logo">ShareBlast</div>
 		<h1>Login</h1>
-		<form action="{{ url_for('auth.login') }}" method="GET">
+		<form action="{{ url_for('auth.login') }}" method="post">
 		  <label for="email">Email</label>
 		  <input type="email" id="email" name="email" required>
 

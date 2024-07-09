@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
 from models.user import User
 from models import db
-from werkzeug.security import generate_password_hash
-from flask_login import login_user
+from datetime import datetime
+from flask_login import login_user, logout_user, LoginManager, login_required
+from werkzeug.security import generate_password_hash, check_password_hash
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -32,7 +33,7 @@ def login():
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
 
-        if user and user.password == password:
+        if user and check_password_hash(user.password, password):
             login_user(user)
             return redirect(url_for('account.account'))
         else:
