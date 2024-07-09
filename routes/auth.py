@@ -74,8 +74,7 @@ def register():
             return render_template('signup.html', error="Email already registered")
 
         hashed_password = generate_password_hash(password)
-
-        new_user = User(username=username, email=email, password=password)
+        new_user = User(username=username, email=email, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
 
