@@ -5,7 +5,9 @@ from models.participation import Participation
 from datetime import datetime
 from flask_login import login_required, current_user
 
+
 giveaway_bp = Blueprint('giveaway', __name__)
+
 
 @giveaway_bp.route('/create-giveaway', methods=['GET', 'POST'])
 @login_required
@@ -31,10 +33,12 @@ def create_giveaway():
 
     return render_template('create_giveaway.html')
 
+
 @giveaway_bp.route('/giveaway/<int:giveaway_id>', methods=['GET'])
 def view_giveaway(giveaway_id):
     giveaway = Giveaway.query.get_or_404(giveaway_id)
     return render_template('giveaway.html', giveaway=giveaway)
+
 
 @giveaway_bp.route('/enter-giveaway/<int:giveaway_id>', methods=['POST'])
 @login_required
