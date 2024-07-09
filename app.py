@@ -4,17 +4,16 @@ from models.user import User
 from models.giveaway import Giveaway
 from models.participation import Participation
 from datetime import datetime
-from flask_login import login_user
-from flask_login import LoginManager
+from flask_login import login_user, LoginManager
 from routes import auth_bp, giveaway_bp, account_bp
 import os
 
 
 app = Flask(__name__)
 
-
 login_manager = LoginManager()
 login_manager.init_app(app)
+login_manager.login_view = 'auth.login'
 
 
 app.config['SECRET_KEY'] = os.environ.get('az12', '123456789AZERTYUIOP')

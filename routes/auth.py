@@ -1,8 +1,8 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session
-from models.user import User
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from models import db
+from models.user import User
 from datetime import datetime
-from flask_login import login_user, logout_user, LoginManager, login_required
+from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 
 auth_bp = Blueprint('auth', __name__)
@@ -35,9 +35,9 @@ def login():
 
         if user and check_password_hash(user.password, password):
             login_user(user)
-            return redirect(url_for('account.account'))
+            return jsonify({'success': True, 'redirect': url_for('account.account')})
         else:
-            return render_template('login.html', error='Invalid username or password')
+            return jsonify({'success': False, 'message': 'Invalid username or password'})
 
     return render_template('login.html')
 
@@ -96,4 +96,15 @@ def logout():
     # Clear the session
     logout_user()
     # Redirect to home page or login page
+    return redirect(url_for('index'))
+
+
+@auth_bp.route('/delete_account', methods=['POST'])
+@login_required
+def delete_account():
+    user = current_user
+    db.session.delete(user)
+    db.session.commit()
+    logout_user()
+    flash('Your account has been successfully deleted.', 'success')
     return redirect(url_for('index'))

@@ -146,3 +146,33 @@ body {
 	box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.1);
 	margin-top: 1rem;
    }
+
+   .delete-account {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #fff3f3;
+    border: 1px solid #ffcccb;
+    border-radius: 5px;
+}
+
+.delete-account h3 {
+    color: #d9534f;
+}
+
+.delete-account p {
+    margin-bottom: 1rem;
+}
+
+.delete-account-btn {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-account-btn:hover {
+    background-color: #c9302c;
+}
