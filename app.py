@@ -1,8 +1,13 @@
 from flask import Flask, render_template
 from models import db, init_app
+from models.user import User
+from models.giveaway import Giveaway
+from models.participation import Participation
+from datetime import datetime
+from flask_login import login_user
+from flask_login import LoginManager
 from routes import auth_bp, giveaway_bp, account_bp
 import os
-from flask_login import LoginManager
 
 
 app = Flask(__name__)
