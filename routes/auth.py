@@ -98,13 +98,3 @@ def logout():
     # Redirect to home page or login page
     return redirect(url_for('index'))
 
-
-@auth_bp.route('/delete_account', methods=['POST'])
-@login_required
-def delete_account():
-    user = current_user
-    db.session.delete(user)
-    db.session.commit()
-    logout_user()
-    flash('Your account has been successfully deleted.', 'success')
-    return redirect(url_for('index'))
