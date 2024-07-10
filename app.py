@@ -67,6 +67,6 @@ if __name__ == '__main__':
     # Create database tables if they do not exist
     with app.app_context():
         db.create_all()
-    
+
     # Run the Flask application
     app.run(debug=True)
