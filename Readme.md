@@ -97,7 +97,7 @@ Another significant challenge was working alone on certain aspects of the projec
 
 ### Architecture
 
-![[Architecture Diagram](https://files.catbox.moe/gqgbey.png)] <!-- Make sure to replace with the actual path to your architecture diagram -->
+![Architecture Diagram](https://files.catbox.moe/gqgbey.png) <!-- Make sure to replace with the actual path to your architecture diagram -->
 
 Our application follows a traditional MVC (Model-View-Controller) pattern. Here's a brief overview of the technologies used:
 
