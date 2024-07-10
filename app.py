@@ -7,21 +7,18 @@ from datetime import datetime
 from flask_login import login_user, LoginManager
 from routes import auth_bp, giveaway_bp, account_bp
 import os
+from config import Config  # Import the Config class from config.py
 
 
 app = Flask(__name__)
+
 
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'auth.login'
 
 
-app.config['SECRET_KEY'] = os.environ.get('az12', '123456789AZERTYUIOP')
-
-
-# Configure SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:zeé"ZE2323@localhost/my_flask_app'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config.from_object(Config)  # Load configurations from Config class
 
 
 # Initialize app with SQLAlchemy
