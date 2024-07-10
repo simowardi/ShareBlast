@@ -20,7 +20,9 @@ app.config['SECRET_KEY'] = os.environ.get('az12', '123456789AZERTYUIOP')
 
 
 # Configure SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:zeé"ZE2323@localhost/my_flask_app'
+app.config['SQLALCHEMY_DATABASE_URI'] = (
+            'mysql://root:zeé"ZE2323@localhost/my_flask_app'
+            )
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
@@ -70,6 +72,6 @@ if __name__ == '__main__':
     # Create database tables if they do not exist
     with app.app_context():
         db.create_all()
-    
+
     # Run the Flask application
     app.run(debug=True)
