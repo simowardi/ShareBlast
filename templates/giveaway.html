@@ -32,6 +32,7 @@
     	            <h2 class="text-center">Winner: {{ giveaway.winner.username }}</h2>
         	    </div>
         	{% endif %}
+			</br></br></br>
                 {% if current_user.id == giveaway.creator_id %}
                 <a href="{{ url_for('giveaway.view_leads', giveaway_id=giveaway.id) }}" class="btn">View Leads</a>
                 {% endif %}

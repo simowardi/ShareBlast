@@ -25,12 +25,11 @@
             <br><br>
             <textarea id="leads-textarea" rows="10" cols="50">
 {% for username, email in leads %}
-{% if show_emails_only %}
-{{ email }}
-{% else %}
-{{ username }}, {{ email }}
+{% if show_emails_only %} {{ email }}
+{% else %} {{ username }}, {{ email }}
 {% endif %}
 {% endfor %}
+			</textarea>
             </textarea>
             <button class="copy-button" onclick="copyLeads()">Copy Leads</button>
         </div>
@@ -44,6 +43,24 @@
         </p>
     </footer>
 
-    <script	script src="/static/js/giveaway_leads.js"></script>
+    <script>
+        function copyLeads() {
+            const textarea = document.getElementById('leads-textarea');
+            textarea.select();
+            document.execCommand('copy');
+        }
+
+        function filterLeads() {
+            const checkbox = document.getElementById('show-emails');
+            const showEmailsOnly = checkbox.checked;
+            const textarea = document.getElementById('leads-textarea');
+            
+            {% if show_emails_only %}
+            textarea.value = "{% for username, email in leads %}\n{{ email }}\n{% endfor %}";
+            {% else %}
+            textarea.value = "{% for username, email in leads %}\n{{ username }}, {{ email }}\n{% endfor %}";
+            {% endif %}
+        }
+    </script>
 </body>
 </html>
