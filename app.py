@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from models import db, init_app
+from models.winner import Winner
 from models.user import User
 from models.giveaway import Giveaway
 from models.participation import Participation

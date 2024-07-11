@@ -8,48 +8,53 @@
 </head>
 
 <body>
-	<header>
-		<nav>
-		  <div>
-			<a href="{{ url_for('index') }}">Home</a>
-			<a href="{{ url_for('account.account') }}">My Account</a>
-			<a href="{{ url_for('giveaway.create_giveaway') }}" class="cta-button">create_giveaway</a>
-		  </div>
-		  <div>
-			<a href="{{ url_for('auth.logout') }}">Logout</a>
-		  </div>
-		</nav>
-	</header>
-	
+    <header>
+        <nav>
+            <div>
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('account.account') }}">My Account</a>
+                <a href="{{ url_for('giveaway.create_giveaway') }}" class="cta-button">Create Giveaway</a>
+                <a href="{{ url_for('giveaway.view_leads', giveaway_id=giveaway.id) }}" class="btn">View Leads</a>
+            </div>
+            <div>
+                <a href="{{ url_for('auth.logout') }}">Logout</a>
+            </div>
+        </nav>
+    </header>
+    
     <div class="container">
         <form class="giveaway-form" id="giveawayForm" method="POST" action="{{ url_for('giveaway.create_giveaway') }}">
             <div class="form-group">
                 <label for="title">Giveaway Title:</label>
                 <input type="text" id="title" name="title" required>
+                <small class="form-text">Title should be descriptive and no more than 120 characters.</small>
             </div>
             <div class="form-group">
                 <label for="description">Giveaway Description:</label>
                 <textarea id="description" name="description" required></textarea>
+                <small class="form-text">Provide a clear and detailed description of the giveaway.</small>
             </div>
             <div class="form-group">
                 <label for="picture">Giveaway Picture URL:</label>
                 <input type="text" id="picture" name="picture" required>
+                <small class="form-text">Ensure the image URL is valid and the image is at least 800x600 pixels for best display.</small>
             </div>
             <div class="form-group">
                 <label for="endTime">Giveaway End Time:</label>
                 <input type="datetime-local" id="endTime" name="endTime" required>
+                <small class="form-text">Set a realistic end time for your giveaway.</small>
             </div>
             <button type="submit" class="submit-btn">Create Giveaway</button>
         </form>
     </div>
 
-	<footer>
-		<p>&copy; 2024 ShareBlast. All rights reserved.</p>
-		<p>
-			<a href="{{ url_for('static', filename='TOS.html') }}">Terms of Service</a>
-			<a href="{{ url_for('static', filename='privacy.html') }}">Privacy Policy</a>			
-		</p>
-	</footer>
+    <footer>
+        <p>&copy; 2024 ShareBlast. All rights reserved.</p>
+        <p>
+            <a href="{{ url_for('static', filename='TOS.html') }}">Terms of Service</a>
+            <a href="{{ url_for('static', filename='privacy.html') }}">Privacy Policy</a>            
+        </p>
+    </footer>
     
     <script src="/static/js/create_giveaway.js"></script>
 </body>

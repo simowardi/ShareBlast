@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShareBlast - Giveaway Leads</title>
+    <link rel="stylesheet" href="/static/css/account.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div>
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('account.account') }}">My Account</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="giveaway-details">
+            <h1 class="text-center">Leads for Giveaway: {{ giveaway.title }}</h1>
+			</br>
+            <div class="download-links">
+                <a href="{{ url_for('giveaway.download_leads', giveaway_id=giveaway.id, file_format='txt') }}" class="btn">Download as TXT</a>
+                <a href="{{ url_for('giveaway.download_leads', giveaway_id=giveaway.id, file_format='csv') }}" class="btn">Download as CSV</a>
+            </div>
+            <table class="leads-table">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for username, email in leads %}
+                    <tr>
+                        <td>{{ username }}</td>
+                        <td>{{ email }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 ShareBlast. All rights reserved.</p>
+        <p>
+            <a href="{{ url_for('static', filename='TOS.html') }}">Terms of Service</a>
+            <a href="{{ url_for('static', filename='privacy.html') }}">Privacy Policy</a>            
+        </p>
+    </footer>
+
+    <script src="/static/js/giveaway.js"></script>
+</body>
+</html>

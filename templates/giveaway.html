@@ -23,11 +23,24 @@
             <img src="{{ giveaway.image_url }}" alt="Giveaway item" class="giveaway-image">
             <p>{{ giveaway.description }}</p>
             <p class="text-center">Time remaining: <span id="countdown">{{ giveaway.end_date }}</span></p>
-            <div class="text-center mt-1">
+        	<div class="text-center mt-1">
                 <form action="{{ url_for('giveaway.enter_giveaway', giveaway_id=giveaway.id) }}" method="POST">
                     <button type="submit" class="btn">Enter Giveaway</button>
                 </form>
-            </div>
+			{% if giveaway.winner %}
+	            <div class="winner-section">
+    	            <h2 class="text-center">Winner: {{ giveaway.winner.username }}</h2>
+        	    </div>
+        	{% endif %}
+			    <div class="text-center mt-1">
+                <form action="{{ url_for('giveaway.enter_giveaway', giveaway_id=giveaway.id) }}" method="POST">
+                    <button type="submit" class="btn">Enter Giveaway</button>
+                </form>
+                {% if current_user.id == giveaway.creator_id %}
+                <a href="{{ url_for('giveaway.view_leads', giveaway_id=giveaway.id) }}" class="btn">View Leads</a>
+                {% endif %}
+        		</div>
+        </div>
         </div>
     </div>
 
