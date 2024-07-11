@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Giveaways - ShareBlast</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/account.css"> <!-- Link your CSS file here -->
+</head>
+<body>
+<header>
+    <nav>
+        <div>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('account.account') }}">My Account</a>
+            <a href="{{ url_for('giveaway.create_giveaway') }}" class="cta-button">Create Giveaway</a>
+            <a href="{{ url_for('giveaway.view_leads', giveaway_id=giveaway.id) }}" class="btn">View Leads</a>
+            <a href="{{ url_for('account.user_giveaways') }}" class="btn">My Giveaways</a> <!-- Active link -->
+        </div>
+        <div>
+            <a href="{{ url_for('auth.logout') }}">Logout</a>
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+    <main>
+        <section class="user-giveaways">
+            <h2>Your Giveaways</h2>
+            <ul>
+                {% if giveaways %}
+                    {% for giveaway in giveaways %}
+                        <li>
+                            <a href="{{ url_for('giveaway.view_giveaway', giveaway_id=giveaway.id) }}">{{ giveaway.title }}</a>
+                            <p>{{ giveaway.description }}</p>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <li>No giveaways found.</li>
+                {% endif %}
+            </ul>
+        </section>
+    </main>
+</div>
+
+<footer>
+    <p>&copy; 2024 ShareBlast. All rights reserved.</p>
+    <p>
+        <a href="{{ url_for('static', filename='TOS.html') }}">Terms of Service</a>
+        <a href="{{ url_for('static', filename='privacy.html') }}">Privacy Policy</a>
+    </p>
+</footer>
+
+</body>
+</html>

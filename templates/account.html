@@ -13,6 +13,7 @@
 	  <a href="{{ url_for('index') }}">Home</a>
 	  <a href="{{ url_for('account.account') }}">My Account</a>
 	  <a href="{{ url_for('giveaway.create_giveaway') }}" class="cta-button">create_giveaway</a>
+	  <a href="{{ url_for('account.user_giveaways') }}" class="btn">My Giveaways</a> <!-- New button -->
 	  <a href="{{ url_for('giveaway.view_leads', giveaway_id=giveaway.id) }}" class="btn">View Leads</a>
     </div>
     <div>
@@ -51,18 +52,6 @@
 			<h3>Prizes Awarded</h3>
 			<p>{{ prizes_awarded }}</p>
 		</div>
-	</section>
-
-	<section class="user-giveaways">
-		<h3>Your Giveaways</h3>
-		<ul>
-			{% for giveaway in user.giveaways %}
-			<li>
-				<a href="{{ url_for('giveaway.view_giveaway', giveaway_id=giveaway.id) }}">{{ giveaway.title }}</a>
-				<p>{{ giveaway.description }}</p>
-			</li>
-			{% endfor %}
-		</ul>
 	</section>
 
 	<section class="delete-account">
