@@ -1,5 +1,6 @@
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from models import db
+from models.winner import Winner
 from models.giveaway import Giveaway
 from models.participation import Participation
 from datetime import datetime
@@ -54,7 +55,13 @@ def view_giveaway(giveaway_id):
         NotFound: If the giveaway with the given ID is not found in the database.
     """
     giveaway = Giveaway.query.get_or_404(giveaway_id)
-    return render_template('giveaway.html', giveaway=giveaway)
+         
+    if datetime.utcnow() >= giveaway.end_date:
+        winner = giveaway.select_winner()
+    else:
+        winner = None
+
+    return render_template('giveaway.html', giveaway=giveaway, winner=winner, now=datetime.utcnow)
 
 
 @giveaway_bp.route('/enter-giveaway/<int:giveaway_id>', methods=['POST'])
@@ -137,43 +144,43 @@ def view_leads(giveaway_id):
 @login_required
 def download_leads(giveaway_id, file_format):
         """
-    Download the leads for a giveaway in the specified file format.
-    Args:
-        giveaway_id (int): The ID of the giveaway.
-        file_format (str): The format of the file to download the leads in ('txt' or 'csv').
-    Returns:
-        the downloaded leads in the specified file format.
-    Raises:
-        flask.abort.NotFound: If the giveaway with the given ID does not exist.
-    Side Effects:
-        Flashes a message if the user is not authorized to download the leads.
-        Redirects to the view_giveaway page if the user is not authorized.
-        Flashes a message if an invalid file format is requested.
-        Redirects to the view_leads page if an invalid file format is requested.
-    """
-    giveaway = Giveaway.query.get_or_404(giveaway_id)
-    if current_user.id != giveaway.creator_id:
-        flash('You are not authorized to download the leads for this giveaway.', 'danger')
-        return redirect(url_for('giveaway.view_giveaway', giveaway_id=giveaway_id))
-    
-    participations = Participation.query.filter_by(giveaway_id=giveaway_id).all()
-    leads = [(p.user.username, p.user.email) for p in participations]
+            Download the leads for a giveaway in the specified file format.
+                Args:
+                        giveaway_id (int): The ID of the giveaway.
+                                file_format (str): The format of the file to download the leads in ('txt' or 'csv').
+                                    Returns:
+                                            the downloaded leads in the specified file format.
+                                                Raises:
+                                                        flask.abort.NotFound: If the giveaway with the given ID does not exist.
+                                                            Side Effects:
+                                                                    Flashes a message if the user is not authorized to download the leads.
+                                                                            Redirects to the view_giveaway page if the user is not authorized.
+                                                                                    Flashes a message if an invalid file format is requested.
+                                                                                            Redirects to the view_leads page if an invalid file format is requested.
+                                                                                                """
+                                                                                                    giveaway = Giveaway.query.get_or_404(giveaway_id)
+                                                                                                        if current_user.id != giveaway.creator_id:
+                                                                                                                    flash('You are not authorized to download the leads for this giveaway.', 'danger')
+                                                                                                                            return redirect(url_for('giveaway.view_giveaway', giveaway_id=giveaway_id))
+                                                                                                                            
+                                                                                                                            participations = Participation.query.filter_by(giveaway_id=giveaway_id).all()
+                                                                                                                                leads = [(p.user.username, p.user.email) for p in participations]
 
-    if file_format == 'txt':
-        output = "\n".join([f"{username}, {email}" for username, email in leads])
-        response = make_response(output)
-        response.headers["Content-Disposition"] = f"attachment; filename=leads_{giveaway.id}.txt"
-        response.headers["Content-Type"] = "text/plain"
-    elif file_format == 'csv':
-        output = StringIO()
-        writer = csv.writer(output)
-        writer.writerow(['Username', 'Email'])
-        writer.writerows(leads)
-        response = make_response(output.getvalue())
-        response.headers["Content-Disposition"] = f"attachment; filename=leads_{giveaway.id}.csv"
-        response.headers["Content-Type"] = "text/csv"
-    else:
-        flash('Invalid file format requested.', 'danger')
-        return redirect(url_for('giveaway.view_leads', giveaway_id=giveaway_id))
-    
-    return response
+                                                                                                                                    if file_format == 'txt':
+                                                                                                                                                output = "\n".join([f"{username}, {email}" for username, email in leads])
+                                                                                                                                                        response = make_response(output)
+                                                                                                                                                                response.headers["Content-Disposition"] = f"attachment; filename=leads_{giveaway.id}.txt"
+                                                                                                                                                                        response.headers["Content-Type"] = "text/plain"
+                                                                                                                                                                            elif file_format == 'csv':
+                                                                                                                                                                                        output = StringIO()
+                                                                                                                                                                                                writer = csv.writer(output)
+                                                                                                                                                                                                        writer.writerow(['Username', 'Email'])
+                                                                                                                                                                                                                writer.writerows(leads)
+                                                                                                                                                                                                                        response = make_response(output.getvalue())
+                                                                                                                                                                                                                                response.headers["Content-Disposition"] = f"attachment; filename=leads_{giveaway.id}.csv"
+                                                                                                                                                                                                                                        response.headers["Content-Type"] = "text/csv"
+                                                                                                                                                                                                                                            else:
+                                                                                                                                                                                                                                                        flash('Invalid file format requested.', 'danger')
+                                                                                                                                                                                                                                                                return redirect(url_for('giveaway.view_leads', giveaway_id=giveaway_id))
+                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                return response
