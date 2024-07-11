@@ -13,17 +13,16 @@
                 <a href="{{ url_for('index') }}">Home</a>
                 <a href="{{ url_for('account.account') }}">My Account</a>
             </div>
+            <div>
+                <button id="copy-leads-btn" class="btn">Copy Leads</button>
+            </div>
         </nav>
     </header>
 
     <div class="container">
         <div class="giveaway-details">
             <h1 class="text-center">Leads for Giveaway: {{ giveaway.title }}</h1>
-			</br>
-            <div class="download-links">
-                <a href="{{ url_for('giveaway.download_leads', giveaway_id=giveaway.id, file_format='txt') }}" class="btn">Download as TXT</a>
-                <a href="{{ url_for('giveaway.download_leads', giveaway_id=giveaway.id, file_format='csv') }}" class="btn">Download as CSV</a>
-            </div>
+            <br>
             <table class="leads-table">
                 <thead>
                     <tr>
@@ -51,6 +50,21 @@
         </p>
     </footer>
 
-    <script src="/static/js/giveaway.js"></script>
+    <script>
+        document.getElementById('copy-leads-btn').addEventListener('click', function() {
+            // Logic to copy leads goes here
+            alert('Copying leads...');
+            // Example logic to copy table content to clipboard
+            const table = document.querySelector('.leads-table');
+            const range = document.createRange();
+            range.selectNodeContents(table);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            document.execCommand('copy');
+            selection.removeAllRanges();
+            alert('Leads copied to clipboard!');
+        });
+    </script>
 </body>
 </html>
