@@ -24,11 +24,7 @@
             <input type="checkbox" id="show-emails" onchange="filterLeads()">
             <br><br>
             <textarea id="leads-textarea" rows="10" cols="50">
-{% for username, email in leads %}
-{% if show_emails_only %} {{ email }}
-{% else %} {{ username }}, {{ email }}
-{% endif %}
-{% endfor %}
+{% for username, email in leads %}{% if show_emails_only %}{{ email }}{% else %}{{ username }}, {{ email }}{% endif %}{% endfor %}
 			</textarea>
             </textarea>
             <button class="copy-button" onclick="copyLeads()">Copy Leads</button>
