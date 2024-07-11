@@ -13,9 +13,6 @@
                 <a href="{{ url_for('index') }}">Home</a>
                 <a href="{{ url_for('account.account') }}">My Account</a>
             </div>
-            <div>
-                <button id="copy-leads-btn" class="btn">Copy Leads</button>
-            </div>
         </nav>
     </header>
 
@@ -23,22 +20,11 @@
         <div class="giveaway-details">
             <h1 class="text-center">Leads for Giveaway: {{ giveaway.title }}</h1>
             <br>
-            <table class="leads-table">
-                <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for username, email in leads %}
-                    <tr>
-                        <td>{{ username }}</td>
-                        <td>{{ email }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <textarea id="leads-textarea" rows="10" cols="50">
+{% for username, email in leads %}
+{{ username }}, {{ email }}
+{% endfor %}
+            </textarea>
         </div>
     </div>
 
@@ -51,19 +37,10 @@
     </footer>
 
     <script>
-        document.getElementById('copy-leads-btn').addEventListener('click', function() {
-            // Logic to copy leads goes here
-            alert('Copying leads...');
-            // Example logic to copy table content to clipboard
-            const table = document.querySelector('.leads-table');
-            const range = document.createRange();
-            range.selectNodeContents(table);
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
+        document.addEventListener('DOMContentLoaded', function() {
+            const textarea = document.getElementById('leads-textarea');
+            textarea.select();
             document.execCommand('copy');
-            selection.removeAllRanges();
-            alert('Leads copied to clipboard!');
         });
     </script>
 </body>
