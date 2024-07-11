@@ -20,11 +20,19 @@
         <div class="giveaway-details">
             <h1 class="text-center">Leads for Giveaway: {{ giveaway.title }}</h1>
             <br>
+            <label for="show-emails">Show only Emails:</label>
+            <input type="checkbox" id="show-emails" onchange="filterLeads()">
+            <br><br>
             <textarea id="leads-textarea" rows="10" cols="50">
 {% for username, email in leads %}
+{% if show_emails_only %}
+{{ email }}
+{% else %}
 {{ username }}, {{ email }}
+{% endif %}
 {% endfor %}
             </textarea>
+            <button class="copy-button" onclick="copyLeads()">Copy Leads</button>
         </div>
     </div>
 
@@ -36,12 +44,6 @@
         </p>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const textarea = document.getElementById('leads-textarea');
-            textarea.select();
-            document.execCommand('copy');
-        });
-    </script>
+    <script	script src="/static/js/giveaway_leads.js"></script>
 </body>
 </html>
