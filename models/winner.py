@@ -3,7 +3,6 @@ import random
 from . import db
 from flask_login import UserMixin
 
-
 class Winner(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     giveaway_id = db.Column(db.Integer, db.ForeignKey('giveaway.id'), nullable=False)
