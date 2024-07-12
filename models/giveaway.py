@@ -3,7 +3,7 @@ from datetime import datetime
 from .winner import Winner
 from .participation import Participation
 
-
+ 
 
 class Giveaway(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -16,8 +16,8 @@ class Giveaway(db.Model):
     creator = db.relationship('User', backref=db.backref('giveaways', lazy=True))
 
     # Relationships
-    winner = db.relationship('Winner', uselist=False, back_populates='giveaway')
-    participations = db.relationship('Participation', back_populates='giveaway')
+    winner = db.relationship('Winner', backref=db.backref('giveaway', uselist=False))
+    participations = db.relationship('Participation', backref=db.backref('giveaway', lazy=True))
 
     def __repr__(self):
         return '<Giveaway %r>' % self.title

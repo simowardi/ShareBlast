@@ -3,13 +3,14 @@ import random
 from . import db
 from flask_login import UserMixin
 
+
 class Winner(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     giveaway_id = db.Column(db.Integer, db.ForeignKey('giveaway.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     selected_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    giveaway = db.relationship('Giveaway', back_populates='winner')
+    giveaway = db.relationship('Giveaway', backref=db.backref('winner', uselist=False))
     user = db.relationship('User')
 
     def __repr__(self):
