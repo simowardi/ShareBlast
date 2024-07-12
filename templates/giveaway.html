@@ -17,29 +17,35 @@
 		</nav>
 	  </header>
 
-    <div class="container">
-        <div class="giveaway-details">
-            <h1 class="text-center">{{ giveaway.title }}</h1>
-            <img src="{{ giveaway.image_url }}" alt="Giveaway item" class="giveaway-image">
-            <p>{{ giveaway.description }}</p>
-            <p class="text-center">Time remaining: <span id="countdown">{{ giveaway.end_date }}</span></p>
-        	<div class="text-center mt-1">
-                <form action="{{ url_for('giveaway.enter_giveaway', giveaway_id=giveaway.id) }}" method="POST">
-                    <button type="submit" class="btn">Enter Giveaway</button>
-                </form>
-			{% if giveaway.winner %}
-	            <div class="winner-section">
-    	            <h2 class="text-center">Winner: {{ giveaway.winner.username }}</h2>
-        	    </div>
-        	{% endif %}
-			</br></br></br>
-                {% if current_user.id == giveaway.creator_id %}
-                <a href="{{ url_for('giveaway.view_leads', giveaway_id=giveaway.id) }}" class="btn">View Leads</a>
-                {% endif %}
-        		</div>
-        </div>
-        </div>
-    </div>
+	  <div class="container">
+		<div class="giveaway-details">
+			<h1 class="text-center">{{ giveaway.title }}</h1>
+			
+			<img src="{{ giveaway.image_url }}" alt="Giveaway item" class="giveaway-image">
+			
+			<p>{{ giveaway.description }}</p>
+			
+			<p>Time remaining: <span id="countdown">{{ giveaway.end_date }}</span></p>
+			
+			<div class="text-center mt-1">
+				{% if now() < giveaway.end_date %}
+					<form action="{{ url_for('giveaway.enter_giveaway', giveaway_id=giveaway.id) }}" method="post">
+						<button type="submit" class="btn btn-primary">Enter Giveaway</button>
+					</form>
+				{% elif giveaway.winner %}
+					<div class="winner-section">
+						<h2 class="text-center">Winner: {{ giveaway.winner.user.username }}</h2>
+					</div>
+				{% else %}
+					<p>This giveaway has ended. No winner was selected.</p>
+				{% endif %}
+				
+				{% if current_user.id == giveaway.creator_id %}
+					<a href="{{ url_for('giveaway.view_leads', giveaway_id=giveaway.id) }}" class="btn btn-secondary">View Leads</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
 
 	<footer>
 		<p>&copy; 2024 ShareBlast. All rights reserved.</p>

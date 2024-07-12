@@ -1,5 +1,8 @@
 from . import db
 from datetime import datetime
+from .winner import Winner
+from .participation import Participation
+
 
 
 class Giveaway(db.Model):
@@ -11,6 +14,11 @@ class Giveaway(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     creator = db.relationship('User', backref=db.backref('giveaways', lazy=True))
+
+    # Relationships
+    creator = db.relationship('User', backref=db.backref('giveaways', lazy=True))
+    winner = db.relationship('Winner', uselist=False, back_populates='giveaway')
+    participations = db.relationship('Participation', back_populates='giveaway')
 
     def __repr__(self):
         return '<Giveaway %r>' % self.title
