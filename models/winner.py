@@ -9,7 +9,7 @@ class Winner(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     selected_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    giveaway = db.relationship('Giveaway', backref=db.backref('winner', uselist=False))
+    giveaway = db.relationship('Giveaway', back_populates='winner')
     user = db.relationship('User')
 
     def __repr__(self):

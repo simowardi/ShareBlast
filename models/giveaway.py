@@ -16,7 +16,6 @@ class Giveaway(db.Model):
     creator = db.relationship('User', backref=db.backref('giveaways', lazy=True))
 
     # Relationships
-    creator = db.relationship('User', backref=db.backref('giveaways', lazy=True))
     winner = db.relationship('Winner', uselist=False, back_populates='giveaway')
     participations = db.relationship('Participation', back_populates='giveaway')
 
