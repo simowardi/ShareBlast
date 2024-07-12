@@ -22,35 +22,32 @@
   </header>
 
 <body>
-    <div class="container">
-        <div class="giveaway-created">
-            <h1>Giveaway Created Successfully!</h1>
-            <p>Your giveaway has been created. You can view it using the link below:</p>
-            <div class="giveaway-link-box">
-                <input type="text" id="giveaway-link" value="{{ url_for('giveaway.view_giveaway', giveaway_id=giveaway_id, _external=True) }}" readonly>
-                <button onclick="copyLink()">Copy</button>
-            </div>
-        </div>
-    </div>
-
-	<footer>
-		<p>&copy; 2024 ShareBlast. All rights reserved.</p>
-		<p>
-			<a href="{{ url_for('static', filename='TOS.html') }}">Terms of Service</a>
-			<a href="{{ url_for('static', filename='privacy.html') }}">Privacy Policy</a>			
-		</p>
-	</footer>
-
-    <script>
-        function copyLink() {
-            var link = document.getElementById("giveaway-link");
-            link.select();
-            link.setSelectionRange(0, 99999); // For mobile devices
-            document.execCommand("copy");
-
-            // Optionally, you can show a confirmation message
-            alert("Link copied to clipboard!");
-        }
-    </script>
+	<div class="container">
+		<div class="giveaway-created">
+			<h1>Giveaway Created Successfully!</h1>
+			<p>Your giveaway has been created. You can view it using the link below:</p>
+			<div class="giveaway-link-box">
+				<input type="text" value="{{ giveaway_url }}" id="giveawayUrl" readonly>
+				<button onclick="copyToClipboard()">Copy</button>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+	function copyToClipboard() {
+		var copyText = document.getElementById("giveawayUrl");
+		copyText.select();
+		copyText.setSelectionRange(0, 99999);
+		document.execCommand("copy");
+		alert("Copied the URL: " + copyText.value);
+	}
+	</script>
 </body>
+<footer>
+	<p>&copy; 2024 ShareBlast. All rights reserved.</p>
+	<p>
+		<a href="{{ url_for('static', filename='TOS.html') }}">Terms of Service</a>
+		<a href="{{ url_for('static', filename='privacy.html') }}">Privacy Policy</a>			
+	</p>
+</footer>
 </html>

@@ -52,6 +52,18 @@
 		</div>
 	</section>
 
+	<section class="recent-giveaways">
+		<h3>user Giveaways</h3>
+		{% for giveaway in recent_giveaways %}
+		{% if current_user.id == giveaway.creator_id %}
+		<a href="{{ url_for('giveaway.view_leads', giveaway_id=giveaway.id) }}" class="btn">View Leads</a>
+		{% endif %}
+		{% if not recent_giveaways %}
+		<p>No recent giveaways found.</p>
+		{% endif %}
+		{% endfor %}
+	</section>
+
 	<section class="delete-account">
 		<h3>Delete Account</h3>
 		<p>Warning: This action cannot be undone. All your data will be permanently deleted.</p>

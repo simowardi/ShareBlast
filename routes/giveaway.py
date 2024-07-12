@@ -37,8 +37,8 @@ def create_giveaway():
         db.session.add(new_giveaway)
         db.session.commit()
 
-        flash('Giveaway created successfully!', 'success')
-        return redirect(url_for('giveaway.view_giveaway', giveaway_id=new_giveaway.id))
+        giveaway_url = url_for('giveaway.view_giveaway', giveaway_id=new_giveaway.id, _external=True)
+        return render_template('giveaway_created.html', giveaway_url=giveaway_url)
 
     return render_template('create_giveaway.html')
 
