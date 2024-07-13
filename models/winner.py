@@ -25,7 +25,7 @@ class Winner(db.Model):
         Returns:
             Winner or None: The winner of the giveaway if one was selected, otherwise None.
         """
-        if not giveaway.winner and datetime.utcnow() >= giveaway.end_date:
+        if not giveaway.winner and datetime.utcnow >= giveaway.end_date:
             participants = [p.user for p in giveaway.participations]
             if participants:
                 winner_user = random.choice(participants)
