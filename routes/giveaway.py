@@ -3,8 +3,8 @@ from models import db
 from models.winner import Winner
 from models.giveaway import Giveaway
 from models.participation import Participation
-from datetime import datetime
 from flask_login import login_required, current_user
+from datetime import datetime
 
 
 giveaway_bp = Blueprint('giveaway', __name__)
