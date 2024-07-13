@@ -40,9 +40,10 @@ def delete_account():
 @login_required
 def usergiveaways():
     """
-    Renders the 'user_giveaways.html' template to display the user's giveaways.
+    Renders the 'usergiveaways.html' template to display the user's giveaways.
     """
-    user = current_user
-    giveaways = user.giveaways  # Assuming user.giveaways is properly queried in your model
-
-    return render_template('usergiveaways.html', user=user, giveaways=giveaways)
+    user_giveaways = Giveaway.query.filter_by(creator_id=current_user.id).all()
+    print(f"Number of giveaways found: {len(user_giveaways)}")  # Debug print
+    for giveaway in user_giveaways:
+        print(f"Giveaway ID: {giveaway.id}, Title: {giveaway.title}")  # More detailed debug
+    return render_template('usergiveaways.html', user_giveaways=user_giveaways)

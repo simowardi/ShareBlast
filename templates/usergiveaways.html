@@ -24,6 +24,7 @@
   <h2>Your Giveaways</h2>
   
   <div class="giveaway-grid">
+	<p>Debug: Number of giveaways: {{ user_giveaways|length }}</p>
     {% for giveaway in user_giveaways %}
     <div class="giveaway-card">
       <img src="{{ giveaway.image_url }}" alt="{{ giveaway.title }}" class="giveaway-image">
