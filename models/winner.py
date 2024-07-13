@@ -7,7 +7,7 @@ class Winner(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     giveaway_id = db.Column(db.Integer, db.ForeignKey('giveaway.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    selected_at = db.Column(db.DateTime, default=datetime.utcnow())
+    selected_at = db.Column(db.DateTime, default=datetime.datetime.utcnow())
 
     giveaway = db.relationship('Giveaway', backref=db.backref('winner', uselist=False))
     user = db.relationship('User')
