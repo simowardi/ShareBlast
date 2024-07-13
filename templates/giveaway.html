@@ -26,15 +26,15 @@
 			<p>{{ giveaway.description }}</p>
 
 			<div class="text-center mt-1">
-				{% if now < giveaway.end_date %}
+				{% if giveaway.end_date %}
 					<form action="{{ url_for('giveaway.enter_giveaway', giveaway_id=giveaway.id) }}" method="post">
 						<button type="submit" class="btn btn-primary">Enter Giveaway</button>
 					</form>
 				<p>Ends on: {{ giveaway.end_date }}</p>
 				{% endif %}
-				<p>Time remaining: <span id="countdown">{{ giveaway.end_date }}</span></p>
 				<p>Created by: {{ giveaway.creator.username }}</p>
 			</div>
+			<p>Time remaining: <span id="countdown">{{ giveaway.end_date }}</span></p>
 
 			{% if giveaway.winner %}
 			<div class="winner-box">
