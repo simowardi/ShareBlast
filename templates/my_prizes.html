@@ -28,7 +28,7 @@
             {% for prize in prizes %}
                 <li class="prize-item">
                     <h3>{{ prize.giveaway.title }}</h3>
-                    <p>Prize: <a href="{{ prize.prize_url }}" target="_blank" class="claim-prize">Claim your prize</a></p>
+                    <p>Prize: <a href="{{ prize.giveaway.prize_url }}" target="_blank" class="claim-prize">Claim your prize</a></p>
                     <p>Won on: {{ prize.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
                 </li>
             {% endfor %}
