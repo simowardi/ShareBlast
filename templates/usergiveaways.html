@@ -35,7 +35,8 @@
         <span>Entries: {{ giveaway.entries_count }}</span>
       </div>
       <div class="giveaway-actions">
-        <a href="{{ url_for('giveaway.view_leads', giveaway_id=giveaway.id) }}" class="action-button">View Leads</a>
+		<a href="{{ url_for('giveaway.view_giveaway', giveaway_id=giveaway.id) }}" class="action-button">visit</a>
+        <a href="{{ url_for('giveaway.view_leads', giveaway_id=giveaway.id) }}" class="action-button">Leads</a>
         <a href="{{ url_for('giveaway.edit_giveaway', giveaway_id=giveaway.id) }}" class="action-button">Edit</a>
         <a href="{{ url_for('giveaway.delete_giveaway', giveaway_id=giveaway.id) }}" class="action-button delete-button">Delete</a>
       </div>

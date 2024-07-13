@@ -284,3 +284,24 @@ body {
 	  width: 100%;
 	}
   }
+  
+  /* Additional styles for the title link */
+  .title-wrapper {
+	display: flex;
+	align-items: center;
+  }
+  
+  .title-wrapper input {
+	flex-grow: 1;
+	margin-right: 10px;
+  }
+  
+  .title-link {
+	font-size: 0.8em;
+	color: #007bff;
+	text-decoration: none;
+  }
+  
+  .title-link:hover {
+	color: #0056b3;
+  }
