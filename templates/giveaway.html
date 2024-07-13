@@ -17,7 +17,7 @@
 		</nav>
 	  </header>
 
-	  <div class="container">
+	<div class="container">
 		<div class="giveaway-details">
 			<h1 class="text-center">{{ giveaway.title }}</h1>
 			
@@ -26,7 +26,7 @@
 			<p>{{ giveaway.description }}</p>
 			
 			<p>Time remaining: <span id="countdown">{{ giveaway.end_date }}</span></p>
-			
+
 			<div class="text-center mt-1">
 				{% if now() < giveaway.end_date %}
 					<form action="{{ url_for('giveaway.enter_giveaway', giveaway_id=giveaway.id) }}" method="post">
@@ -34,7 +34,7 @@
 					</form>
 				{% elif giveaway.winner %}
 					<div class="winner-section">
-						<h2 class="text-center">Winner: {{ giveaway.winner.user.username }}</h2>
+						<h2 class="text-center">🎉 Winner: <span class="winner-username">{{ giveaway.winner.user.username }}</span> 🎉</h2>
 					</div>
 				{% else %}
 					<p>This giveaway has ended. No winner was selected.</p>

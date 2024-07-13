@@ -108,10 +108,10 @@ def select_winner(giveaway_id):
     if current_user.id != giveaway.creator_id:
         flash('You are not authorized to select the winner for this giveaway.', 'danger')
         return redirect(url_for('giveaway.view_giveaway', giveaway_id=giveaway_id))
-    
+
     winner = giveaway.select_winner()
     if winner:
-        flash(f'The winner is {winner.username}', 'success')
+        flash(f'The winner is {winner.user.username}', 'success')
     else:
         flash('No participants found or giveaway not yet ended.', 'warning')
 
