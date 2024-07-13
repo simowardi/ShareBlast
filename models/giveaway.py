@@ -12,17 +12,26 @@ class Giveaway(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now())
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     creator = db.relationship('User', backref=db.backref('giveaways', lazy=True))
-	
+    prize_url = db.Column(db.String(256), nullable=False)
+
+
     def __repr__(self):
         return '<Giveaway %r>' % self.title
-    """
-	Selects a winner for the giveaway if the giveaway 
-	has not already been won and the current time is after the end date.
-	Returns:
-		The winner of the giveaway if one was selected, otherwise None.
-	"""
+
+
+	# Selects a winner for the giveaway if the giveaway 
     def select_winner(self):
         if not self.winner and datetime.now() >= self.end_date:
             winner = Winner.select_winner(self)
+            return winner
+        return None
+    
+
+    def select_winner(self):
+        if not self.winner and datetime.now() >= self.end_date:
+            winner = Winner.select_winner(self)
+            if winner:
+                winner.prize_url = self.prize_url  # Store the prize URL for the winner
+                db.session.commit()
             return winner
         return None

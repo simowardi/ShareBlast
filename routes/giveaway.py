@@ -26,13 +26,15 @@ def create_giveaway():
         description = request.form['description']
         image_url = request.form['picture']
         end_date = datetime.strptime(request.form['endTime'], '%Y-%m-%dT%H:%M')
-        
+        prize_url = request.form['prize_url']
+
         new_giveaway = Giveaway(
             title=title,
             description=description,
             image_url=image_url,
             end_date=end_date,
             creator_id=current_user.id
+            prize_url=prize_url
         )
         db.session.add(new_giveaway)
         db.session.commit()
@@ -116,6 +118,13 @@ def select_winner(giveaway_id):
         flash('No participants found or giveaway not yet ended.', 'warning')
 
     return redirect(url_for('giveaway.view_giveaway', giveaway_id=giveaway_id))
+
+
+@giveaway_bp.route('/my-prizes', methods=['GET'])
+@login_required
+def my_prizes():
+    user_prizes = Winner.query.filter_by(user_id=current_user.id).all()
+    return render_template('my_prizes.html', prizes=user_prizes)
 
 
 @giveaway_bp.route('/giveaway/<int:giveaway_id>/leads', methods=['GET'])

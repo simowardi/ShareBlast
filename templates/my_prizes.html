@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Prizes - ShareBlast</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/usergiveaways.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div>
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('account.account') }}">My Account</a>
+                <a href="{{ url_for('giveaway.create_giveaway') }}" class="cta-button">create_giveaway</a>
+            </div>
+            <div>
+                <a href="{{ url_for('auth.logout') }}">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>My Prizes</h1>
+        {% if prizes %}
+            <ul class="prize-list">
+            {% for prize in prizes %}
+                <li class="prize-item">
+                    <h3>{{ prize.giveaway.title }}</h3>
+                    <p>Prize: <a href="{{ prize.prize_url }}" target="_blank" class="claim-prize">Claim your prize</a></p>
+                    <p>Won on: {{ prize.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p class="no-prizes">You haven't won any prizes yet. Keep participating in giveaways!</p>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 ShareBlast. All rights reserved.</p>
+        <p>
+            <a href="{{ url_for('static', filename='TOS.html') }}">Terms of Service</a>
+            <a href="{{ url_for('static', filename='privacy.html') }}">Privacy Policy</a>			
+        </p>
+    </footer>
+</body>
+</html>

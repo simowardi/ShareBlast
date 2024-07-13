@@ -305,3 +305,41 @@ body {
   .title-link:hover {
 	color: #0056b3;
   }
+
+  .prize-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.prize-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 15px;
+}
+
+.prize-item h3 {
+    color: #333;
+    margin-top: 0;
+}
+
+.claim-prize {
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    display: inline-block;
+    padding: 8px 15px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.claim-prize:hover {
+    background-color: #45a049;
+}
+
+.no-prizes {
+    color: #666;
+    font-style: italic;
+}
