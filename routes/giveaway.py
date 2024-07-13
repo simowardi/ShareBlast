@@ -124,6 +124,8 @@ def select_winner(giveaway_id):
 @login_required
 def my_prizes():
     user_prizes = Winner.query.filter_by(user_id=current_user.id).order_by(Winner.created_at.asc()).all()
+    for prize in user_prizes:
+        print(prize.created_at)  # Print to verify datetime values
     return render_template('my_prizes.html', prizes=user_prizes)
 
 
