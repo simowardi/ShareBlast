@@ -21,23 +21,23 @@
         </nav>
     </header>
 
-    <main class="container">
-        <h1>My Prizes</h1>
-        {% if prizes %}
-            <ul class="prize-list">
-            {% for prize in prizes %}
-                <li class="prize-item">
-                    <h3>{{ prize.giveaway.title }}</h3>
-                    <p>Prize: <a href="{{ prize.giveaway.prize_url }}" target="_blank" class="claim-prize">Claim your prize</a></p>
-                    <p>Won on: {{ prize.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
-                </li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            <p class="no-prizes">You haven't won any prizes yet. Keep participating in giveaways!</p>
-        {% endif %}
-    </main>
-
+	<main class="container">
+		<h1 class="prizes-title">My Prizes</h1>
+		{% if prizes %}
+			<div class="prize-grid">
+			{% for prize in prizes %}
+				<div class="prize-item">
+					<h3>{{ prize.giveaway.title }}</h3>
+					<a href="{{ prize.giveaway.prize_url }}" target="_blank" class="claim-prize-btn">Claim your prize</a>
+					<p class="won-date">Won on: {{ prize.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+				</div>
+			{% endfor %}
+			</div>
+		{% else %}
+			<p class="no-prizes">You haven't won any prizes yet. Keep participating in giveaways!</p>
+		{% endif %}
+	</main>
+	
     <footer>
         <p>&copy; 2024 ShareBlast. All rights reserved.</p>
         <p>

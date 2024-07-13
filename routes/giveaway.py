@@ -123,7 +123,7 @@ def select_winner(giveaway_id):
 @giveaway_bp.route('/my-prizes', methods=['GET'])
 @login_required
 def my_prizes():
-    user_prizes = Winner.query.filter_by(user_id=current_user.id).all()
+    user_prizes = Winner.query.filter_by(user_id=current_user.id).order_by(Winner.created_at.desc()).all()
     return render_template('my_prizes.html', prizes=user_prizes)
 
 
