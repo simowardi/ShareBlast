@@ -138,3 +138,39 @@ def view_leads(giveaway_id):
     leads = [(p.user.username, p.user.email) for p in participations]
 
     return render_template('giveaway_leads.html', giveaway=giveaway, leads=leads)
+
+
+@giveaway_bp.route('/edit_giveaway/<int:giveaway_id>', methods=['GET', 'POST'])
+@login_required
+def edit_giveaway(giveaway_id):
+    giveaway = Giveaway.query.get_or_404(giveaway_id)
+    if giveaway.creator_id != current_user.id:
+        flash('You do not have permission to edit this giveaway.', 'error')
+        return redirect(url_for('account.usergiveaways'))
+    
+    if request.method == 'POST':
+        # Update giveaway details
+        giveaway.title = request.form['title']
+        giveaway.description = request.form['description']
+        giveaway.end_date = datetime.strptime(request.form['end_date'], '%Y-%m-%d')
+        # Add more fields as necessary
+        
+        db.session.commit()
+        flash('Giveaway updated successfully.', 'success')
+        return redirect(url_for('account.usergiveaways'))
+    
+    return render_template('edit_giveaway.html', giveaway=giveaway)
+
+
+@giveaway_bp.route('/delete_giveaway/<int:giveaway_id>', methods=['POST'])
+@login_required
+def delete_giveaway(giveaway_id):
+    giveaway = Giveaway.query.get_or_404(giveaway_id)
+    if giveaway.creator_id != current_user.id:
+        flash('You do not have permission to delete this giveaway.', 'error')
+        return redirect(url_for('account.usergiveaways'))
+    
+    db.session.delete(giveaway)
+    db.session.commit()
+    flash('Giveaway deleted successfully.', 'success')
+    return redirect(url_for('account.usergiveaways'))
