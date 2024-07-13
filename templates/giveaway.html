@@ -25,7 +25,6 @@
 			
 			<p>{{ giveaway.description }}</p>
 			
-			<p>Time remaining: <span id="countdown">{{ giveaway.end_date }}</span></p>
 
 			<div class="text-center mt-1">
 				{% if now < giveaway.end_date %}
@@ -34,17 +33,14 @@
 					</form>
 				<p>Ends on: {{ giveaway.end_date }}</p>
 				{% endif %}
-
-				{% if giveaway.winner %}
-				<p class="winner">🎉 Winner: {{ giveaway.winner.user.username }} 🎉</p>
-			    {% elif now > giveaway.end_date %}
-				<p>This giveaway has ended. No winner was selected.</p>
-			    {% endif %}
-
-			    {% if current_user.id == giveaway.creator_id %}
-				<button onclick="viewLeads({{ giveaway.id }})">View Leads</button>
-			    {% endif %}
 			</div>
+			{% if giveaway.winner %}
+			<p class="winner">🎉 Winner: {{ giveaway.winner.user.username }} 🎉</p>
+			{% elif now > giveaway.end_date %}
+			<p>This giveaway has ended. No winner was selected.</p>
+			{% endif %}
+
+			<p>Time remaining: <span id="countdown">{{ giveaway.end_date }}</span></p>
 		</div>
 	</div>
 
