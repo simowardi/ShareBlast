@@ -252,3 +252,26 @@ footer {
 	cursor: pointer;
 	margin-left: 10px;
 }
+
+.winner-box {
+	background-color: #ffd700;
+	border-radius: 10px;
+	padding: 10px;
+	text-align: center;
+	max-width: 400px;
+	margin: 0 auto;
+  }
+  
+  .winner {
+	font-size: 18px;
+	font-weight: bold;
+	color: #fff;
+	text-shadow: 2px 2px 4px #000;
+	word-wrap: break-word;
+  }
+  
+  @media only screen and (max-width: 600px) {
+	.winner-box {
+	  max-width: 90%;
+	}
+  }
