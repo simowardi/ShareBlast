@@ -55,13 +55,11 @@ def view_giveaway(giveaway_id):
         NotFound: If the giveaway with the given ID is not found in the database.
     """
     giveaway = Giveaway.query.get_or_404(giveaway_id)
-    
-    # Check if a winner has already been selected
-    if not giveaway.winner and datetime.utcnow() >= giveaway.end_date:
-        # If not, try to select a winner
-        winner = Winner.select_winner(giveaway)
+         
+    if datetime.utcnow() >= giveaway.end_date:
+        winner = giveaway.select_winner()
     else:
-        winner = giveaway.winner
+        winner = None
 
     return render_template('giveaway.html', giveaway=giveaway, winner=winner, now=datetime.utcnow)
 

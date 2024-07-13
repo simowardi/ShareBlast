@@ -38,11 +38,11 @@ def delete_account():
 
 @account_bp.route('/user_giveaways')
 @login_required
-def user_giveaways():
+def usergiveaways():
     """
     Renders the 'user_giveaways.html' template to display the user's giveaways.
     """
     user = current_user
     giveaways = user.giveaways  # Assuming user.giveaways is properly queried in your model
 
-    return render_template('user_giveaways.html', user=user, giveaways=giveaways)
+    return render_template('usergiveaways.html', user=user, giveaways=giveaways)

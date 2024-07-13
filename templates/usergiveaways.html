@@ -1,0 +1,57 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <title>Your Giveaways - GiveawaySimple</title>
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="/static/css/usergiveaways.css">
+	</head>
+<body>
+	<header>
+		<nav>
+		  <div>
+			<a href="{{ url_for('index') }}">Home</a>
+			<a href="{{ url_for('account.usergiveaways') }}">My Giveaways</a>
+			<a href="{{ url_for('account.account') }}">My Account</a>
+			<a href="{{ url_for('account.create_giveaway') }}" class="cta-button">Create Giveaway</a>
+		  </div>
+		  <div>
+			<a href="{{ url_for('auth.logout') }}">Logout</a>
+		  </div>
+		</nav>
+	</header>
+
+<main>
+  <h2>Your Giveaways</h2>
+  
+  <div class="giveaway-grid">
+    {% for giveaway in user_giveaways %}
+    <div class="giveaway-card">
+      <img src="{{ giveaway.image_url }}" alt="{{ giveaway.title }}" class="giveaway-image">
+      <div class="giveaway-title">{{ giveaway.title }}</div>
+      <div class="giveaway-description">{{ giveaway.description }}</div>
+      <div class="giveaway-meta">
+        <span>Ends: {{ giveaway.end_date.strftime('%m/%d/%Y') }}</span>
+        <span>Entries: {{ giveaway.entries_count }}</span>
+      </div>
+      <div class="giveaway-actions">
+        <a href="{{ url_for('giveaway.view_leads', giveaway_id=giveaway.id) }}" class="action-button">View Leads</a>
+        <a href="{{ url_for('giveaway.edit_giveaway', giveaway_id=giveaway.id) }}" class="action-button">Edit</a>
+        <a href="{{ url_for('giveaway.delete_giveaway', giveaway_id=giveaway.id) }}" class="action-button delete-button">Delete</a>
+      </div>
+    </div>
+    {% else %}
+    <p class="no-giveaways">You haven't created any giveaways yet. <a href="{{ url_for('account.create_giveaway') }}">Create your first giveaway!</a></p>
+    {% endfor %}
+  </div>
+</main>
+
+<footer>
+	<p>&copy; 2024 ShareBlast. All rights reserved.</p>
+	<p>
+		<a href="{{ url_for('static', filename='TOS.html') }}">Terms of Service</a>
+		<a href="{{ url_for('static', filename='privacy.html') }}">Privacy Policy</a>			
+	</p>
+</footer>
+
+</body>
+</html>
