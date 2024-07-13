@@ -3,7 +3,7 @@ from models import db
 from models.winner import Winner
 from models.giveaway import Giveaway
 from models.participation import Participation
-from datetime import datetime
+import datetime
 from flask_login import login_required, current_user
 
 
@@ -56,7 +56,7 @@ def view_giveaway(giveaway_id):
     """
     giveaway = Giveaway.query.get_or_404(giveaway_id)
          
-    if datetime.utcnow >= giveaway.end_date:
+    if datetime.datetime.utcnow >= giveaway.end_date:
         winner = giveaway.select_winner()
     else:
         winner = None
