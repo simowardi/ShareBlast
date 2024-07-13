@@ -5,7 +5,7 @@ from models.giveaway import Giveaway
 from models.participation import Participation
 from flask_login import login_required, current_user
 from datetime import datetime
-from apscheduler.schedulers.background import BackgroundScheduler
+
 
 giveaway_bp = Blueprint('giveaway', __name__)
 
@@ -95,7 +95,7 @@ def enter_giveaway(giveaway_id):
 
 @giveaway_bp.route('/select_winner/<int:giveaway_id>', methods=['POST'])
 @login_required
-def select_winner_route(giveaway_id):
+def select_winner(giveaway_id):
     """
     Selects a winner for a giveaway if 
     the giveaway has not already been won and the current user is the creator of the giveaway.
