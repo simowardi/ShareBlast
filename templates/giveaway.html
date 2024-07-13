@@ -26,24 +26,13 @@
 			<p>{{ giveaway.description }}</p>
 			
 			<p>Time remaining: <span id="countdown">{{ giveaway.end_date }}</span></p>
+			
+			<p>Ends on: {{ giveaway.end_date }}</p>
+            {% if giveaway.winner %}
+            <p><h2>🎉 Winner: {{ giveaway.winner.username }}</h2></p>
+            {% endif %}
 
-			<div class="text-center mt-1">
-				{% if now() < giveaway.end_date %}
-					<form action="{{ url_for('giveaway.enter_giveaway', giveaway_id=giveaway.id) }}" method="post">
-						<button type="submit" class="btn btn-primary">Enter Giveaway</button>
-					</form>
-				{% elif giveaway.winner %}
-					<div class="winner-section">
-						<h2 class="text-center">🎉 Winner: <span class="winner-username">{{ giveaway.winner.user.username }}</span> 🎉</h2>
-					</div>
-				{% else %}
-					<p>This giveaway has ended. No winner was selected.</p>
-				{% endif %}
-				
-				{% if current_user.id == giveaway.creator_id %}
-					<a href="{{ url_for('giveaway.view_leads', giveaway_id=giveaway.id) }}" class="btn btn-secondary">View Leads</a>
-				{% endif %}
-			</div>
+
 		</div>
 	</div>
 
