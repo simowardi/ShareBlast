@@ -33,7 +33,7 @@ def create_giveaway():
             description=description,
             image_url=image_url,
             end_date=end_date,
-            creator_id=current_user.id
+            creator_id=current_user.id,
             prize_url=prize_url
         )
         db.session.add(new_giveaway)
