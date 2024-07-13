@@ -34,17 +34,16 @@
 					</form>
 				<p>Ends on: {{ giveaway.end_date }}</p>
 				{% endif %}
+
 				{% if giveaway.winner %}
-					<div class="winner-section">
-						<h2 class="text-center">🎉 Winner: <span class="winner-username">{{ giveaway.winner.username }}</span> 🎉</h2>
-					</div>
-				{% else %}
-					<p>This giveaway has ended. No winner was selected.</p>
-				{% endif %}
-				
-				{% if current_user.id == giveaway.creator_id %}
-					<a href="{{ url_for('giveaway.view_leads', giveaway_id=giveaway.id) }}" class="btn btn-secondary">View Leads</a>
-				{% endif %}
+				<p class="winner">🎉 Winner: {{ giveaway.winner.user.username }} 🎉</p>
+			    {% elif now > giveaway.end_date %}
+				<p>This giveaway has ended. No winner was selected.</p>
+			    {% endif %}
+
+			    {% if current_user.id == giveaway.creator_id %}
+				<button onclick="viewLeads({{ giveaway.id }})">View Leads</button>
+			    {% endif %}
 			</div>
 		</div>
 	</div>
