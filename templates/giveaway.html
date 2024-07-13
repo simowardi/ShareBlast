@@ -32,8 +32,9 @@
 					</form>
 				<p>Ends on: {{ giveaway.end_date }}</p>
 				{% endif %}
+				<p>Time remaining: <span id="countdown">{{ giveaway.end_date }}</span></p>
+				<p>Created by: {{ giveaway.creator.username }}</p>
 			</div>
-			<p>Time remaining: <span id="countdown">{{ giveaway.end_date }}</span></p>
 
 			{% if giveaway.winner %}
 			<div class="winner-box">
