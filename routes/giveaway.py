@@ -61,7 +61,7 @@ def view_giveaway(giveaway_id):
     else:
         winner = None
 
-    return render_template('giveaway.html', giveaway=giveaway, winner=winner, now=datetime.utcnow)
+    return render_template('giveaway.html', giveaway=giveaway, winner=winner, now=datetime.utcnow())
 
 
 @giveaway_bp.route('/enter-giveaway/<int:giveaway_id>', methods=['POST'])
