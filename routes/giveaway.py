@@ -3,8 +3,8 @@ from models import db
 from models.winner import Winner
 from models.giveaway import Giveaway
 from models.participation import Participation
-from flask_login import login_required, current_user
 from datetime import datetime
+from flask_login import login_required, current_user
 
 
 giveaway_bp = Blueprint('giveaway', __name__)
@@ -61,7 +61,7 @@ def view_giveaway(giveaway_id):
     else:
         winner = None
 
-    return render_template('giveaway.html', giveaway=giveaway, winner=winner, now=datetime.utcnow())
+    return render_template('giveaway.html', giveaway=giveaway, winner=winner, now=datetime.utcnow)
 
 
 @giveaway_bp.route('/enter-giveaway/<int:giveaway_id>', methods=['POST'])
@@ -109,7 +109,7 @@ def select_winner(giveaway_id):
         flash('You are not authorized to select the winner for this giveaway.', 'danger')
         return redirect(url_for('giveaway.view_giveaway', giveaway_id=giveaway_id))
 
-    winner = Winner.select_winner(giveaway)
+    winner = giveaway.select_winner()
     if winner:
         flash(f'The winner is {winner.user.username}', 'success')
     else:

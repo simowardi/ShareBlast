@@ -33,13 +33,16 @@
 				<p>Ends on: {{ giveaway.end_date }}</p>
 				{% endif %}
 			</div>
+			<p>Time remaining: <span id="countdown">{{ giveaway.end_date }}</span></p>
+
 			{% if giveaway.winner %}
-			<p class="winner">🎉 Winner: {{ giveaway.winner.user.username }} 🎉</p>
+			<div class="winner-box">
+				<p class="winner">🎉 Winner: {{ giveaway.winner.user.username }} 🎉</p>
+			</div>
 			{% elif now > giveaway.end_date %}
 			<p>This giveaway has ended. No winner was selected.</p>
 			{% endif %}
 
-			<p>Time remaining: <span id="countdown">{{ giveaway.end_date }}</span></p>
 		</div>
 			
 	</div>
