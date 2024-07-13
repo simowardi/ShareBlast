@@ -8,6 +8,7 @@ from datetime import datetime
 from flask_login import login_user, LoginManager
 from routes import auth_bp, giveaway_bp, account_bp
 import os
+from apscheduler.schedulers.background import BackgroundScheduler
 
 
 app = Flask(__name__)
@@ -33,6 +34,28 @@ init_app(app)
 app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(giveaway_bp, url_prefix='/giveaway')
 app.register_blueprint(account_bp, url_prefix='/account')
+
+
+scheduler = BackgroundScheduler()
+scheduler.start()
+
+def select_winner(giveaway_id):
+    with app.app_context():
+        giveaway = Giveaway.query.get(giveaway_id)
+        if giveaway and not giveaway.winner:
+            winner = Winner.select_winner(giveaway)
+            if winner:
+                print(f"Winner selected: {winner.user.username} for giveaway {giveaway_id}")
+
+def schedule_winner_selection():
+    with app.app_context():
+        giveaways = Giveaway.query.all()
+        for giveaway in giveaways:
+            if giveaway.end_date > datetime.utcnow():
+                scheduler.add_job(select_winner, 'date', run_date=giveaway.end_date, args=[giveaway.id])
+
+# Schedule the job
+schedule_winner_selection()
 
 
 @login_manager.user_loader

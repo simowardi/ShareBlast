@@ -24,7 +24,6 @@
 			<img src="{{ giveaway.image_url }}" alt="Giveaway item" class="giveaway-image">
 			
 			<p>{{ giveaway.description }}</p>
-			
 
 			<div class="text-center mt-1">
 				{% if now < giveaway.end_date %}
@@ -42,6 +41,7 @@
 
 			<p>Time remaining: <span id="countdown">{{ giveaway.end_date }}</span></p>
 		</div>
+			
 	</div>
 
 	<footer>

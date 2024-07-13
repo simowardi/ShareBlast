@@ -1,7 +1,6 @@
 // static/js/giveaway.js
 
 // Logic to handle countdown timer and other client-side interactions
-
 document.addEventListener('DOMContentLoaded', function() {
     const countdownElement = document.getElementById('countdown');
     const endDate = new Date(countdownElement.textContent);
@@ -12,6 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (diff <= 0) {
             countdownElement.textContent = "This giveaway has ended.";
+            clearInterval(timerInterval);
+            location.reload(); // Reload the page to fetch the winner information
             return;
         }
 
@@ -23,5 +24,5 @@ document.addEventListener('DOMContentLoaded', function() {
         countdownElement.textContent = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
     }
 
-    setInterval(updateCountdown, 1000);
+    const timerInterval = setInterval(updateCountdown, 1000);
 });
