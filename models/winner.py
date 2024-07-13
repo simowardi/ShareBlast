@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 import random
 from . import db
 from flask_login import UserMixin
@@ -7,7 +7,7 @@ class Winner(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     giveaway_id = db.Column(db.Integer, db.ForeignKey('giveaway.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    selected_at = db.Column(db.DateTime, default=datetime.datetime.utcnow())
+    selected_at = db.Column(db.DateTime, default=datetime.now())
 
     giveaway = db.relationship('Giveaway', backref=db.backref('winner', uselist=False))
     user = db.relationship('User')
@@ -25,7 +25,7 @@ class Winner(db.Model):
         Returns:
             Winner or None: The winner of the giveaway if one was selected, otherwise None.
         """
-        if not giveaway.winner and datetime.datetime.utcnow() >= giveaway.end_date:
+        if not giveaway.winner and datetime.now() >= giveaway.end_date:
             participants = [p.user for p in giveaway.participations]
             if participants:
                 winner_user = random.choice(participants)

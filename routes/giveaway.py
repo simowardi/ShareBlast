@@ -4,7 +4,7 @@ from models.winner import Winner
 from models.giveaway import Giveaway
 from models.participation import Participation
 from flask_login import login_required, current_user
-import datetime
+from datetime import datetime
 
 
 giveaway_bp = Blueprint('giveaway', __name__)
@@ -56,12 +56,12 @@ def view_giveaway(giveaway_id):
     """
     giveaway = Giveaway.query.get_or_404(giveaway_id)
          
-    if datetime.datetime.utcnow() >= giveaway.end_date:
+    if datetime.now() >= giveaway.end_date:
         winner = giveaway.select_winner()
     else:
         winner = None
 
-    return render_template('giveaway.html', giveaway=giveaway, winner=winner, now=datetime.utcnow())
+    return render_template('giveaway.html', giveaway=giveaway, winner=winner, now=datetime.now())
 
 
 @giveaway_bp.route('/enter-giveaway/<int:giveaway_id>', methods=['POST'])
