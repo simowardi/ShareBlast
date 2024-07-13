@@ -22,7 +22,7 @@ class Giveaway(db.Model):
 		The winner of the giveaway if one was selected, otherwise None.
 	"""
     def select_winner(self):
-    if not self.winner and datetime.now() >= self.end_date:
-        winner = Winner.select_winner(self)
-        return winner
-    return None
+        if not self.winner and datetime.now() >= self.end_date:
+            winner = Winner.select_winner(self)
+            return winner
+        return None
