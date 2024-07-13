@@ -38,12 +38,8 @@
 		<a href="{{ url_for('giveaway.view_giveaway', giveaway_id=giveaway.id) }}" class="action-button">visit</a>
         <a href="{{ url_for('giveaway.view_leads', giveaway_id=giveaway.id) }}" class="action-button">Leads</a>
         <a href="{{ url_for('giveaway.edit_giveaway', giveaway_id=giveaway.id) }}" class="action-button">Edit</a>
-        <div class="giveaway-actions">
-			<form action="{{ url_for('giveaway.delete_giveaway', giveaway_id=giveaway.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this giveaway?');">
-			  <button type="submit" class="action-button delete-button">Delete</button>
-			</form>
-		  </div>
-      </div>
+        <a href="{{ url_for('giveaway.delete_giveaway', giveaway_id=giveaway.id) }}" class="action-button delete-button">Delete</a>
+	  </div>
     </div>
     {% else %}
     <p class="no-giveaways">You haven't created any giveaways yet. <a href="{{ url_for('giveaway.create_giveaway') }}">Create your first giveaway!</a></p>

@@ -166,11 +166,15 @@ def edit_giveaway(giveaway_id):
 @login_required
 def delete_giveaway(giveaway_id):
     giveaway = Giveaway.query.get_or_404(giveaway_id)
-    if giveaway.creator_id != current_user.id:
+    
+    # Check if the current user is the creator of the giveaway
+    if current_user.id != giveaway.creator_id:
         flash('You do not have permission to delete this giveaway.', 'error')
         return redirect(url_for('account.usergiveaways'))
     
+    # Delete the giveaway from the database
     db.session.delete(giveaway)
     db.session.commit()
+    
     flash('Giveaway deleted successfully.', 'success')
     return redirect(url_for('account.usergiveaways'))
