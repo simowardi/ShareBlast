@@ -38,11 +38,11 @@
 			{% if giveaway.winner %}
 			<div class="winner-box">
 				<p class="winner">🎉 Winner: {{ giveaway.winner.user.username }} 🎉</p>
-			</div>
 			{% elif now > giveaway.end_date %}
 			<p>This giveaway has ended. No winner was selected.</p>
 			{% endif %}
 
+			</div>
 		</div>
 			
 	</div>
