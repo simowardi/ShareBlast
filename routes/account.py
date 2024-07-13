@@ -13,9 +13,9 @@ def account():
     """
     user = current_user
     total_giveaways = Giveaway.query.filter_by(creator_id=user.id).count()
-    active_giveaways = Giveaway.query.filter(Giveaway.creator_id == user.id, Giveaway.end_date >= datetime.utcnow).count()
+    active_giveaways = Giveaway.query.filter(Giveaway.creator_id == user.id, Giveaway.end_date >= datetime.utcnow()).count()
     participants = Participation.query.join(Giveaway).filter(Giveaway.creator_id == user.id).count()
-    prizes_awarded = Giveaway.query.filter_by(creator_id=user.id).filter(Giveaway.end_date < datetime.utcnow).count()
+    prizes_awarded = Giveaway.query.filter_by(creator_id=user.id).filter(Giveaway.end_date < datetime.utcnow()).count()
 
     return render_template('account.html', user=user, total_giveaways=total_giveaways, 
                            active_giveaways=active_giveaways, participants=participants, 
