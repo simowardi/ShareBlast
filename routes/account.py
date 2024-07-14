@@ -47,7 +47,7 @@ def delete_account():
     Participation.query.filter_by(user_id=user.id).delete()
 
     # Delete all winners associated with the user
-    Winner.query.filter_by(user_id=user.id).delete()
+    winner.query.filter_by(user_id=user.id).delete()
 
     # Delete all giveaways created by the user
     Giveaway.query.filter_by(creator_id=user.id).delete()
