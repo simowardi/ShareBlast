@@ -20,39 +20,42 @@
 	</header>
 <main>
   
-	<form method="POST" action="{{ url_for('giveaway.edit_giveaway', giveaway_id=giveaway.id) }}">
-		<div class="form-group">
-			<label for="title">Giveaway Title:</label>
-			<input type="text" id="title" name="title" value="{{ giveaway.title }}" required maxlength="120">
-			<small>Title should be descriptive and no more than 120 characters.</small>
-		</div>
+  <div class="container">
 	
-		<div class="form-group">
-			<label for="description">Giveaway Description:</label>
-			<textarea id="description" name="description" required>{{ giveaway.description }}</textarea>
-			<small>Provide a clear and detailed description of the giveaway.</small>
-		</div>
-	
-		<div class="form-group">
-			<label for="image_url">Giveaway Picture URL:</label>
-			<input type="url" id="image_url" name="image_url" value="{{ giveaway.image_url }}" required>
-			<small>Ensure the image URL is valid and the image is at least 800x600 pixels for best display.</small>
-		</div>
-	
-		<div class="form-group">
-			<label for="end_date">Giveaway End Time:</label>
-			<input type="datetime-local" id="end_date" name="end_date" value="{{ giveaway.end_date.strftime('%Y-%m-%dT%H:%M') }}" required>
-			<small>Set a realistic end time for your giveaway.</small>
-		</div>
-	
-		<div class="form-group">
-			<label for="prize_url">Prize URL:</label>
-			<input type="url" id="prize_url" name="prize_url" value="{{ giveaway.prize_url }}" required>
-		</div>
-	
-		<button type="submit">Update Giveaway</button>
-	</form>
+	<form action="{{ url_for('giveaway.edit_giveaway', giveaway_id=giveaway.id) }}" method="POST">
+	  <div class="form-group">
+		<label for="title">Giveaway Title:</label>
+		<input type="text" id="title" name="title" value="{{ giveaway.title }}" maxlength="120" required>
+		<span class="small">Title should be descriptive and no more than 120 characters.</span>
+	  </div>
+  
+	  <div class="form-group">
+		<label for="description">Giveaway Description:</label>
+		<textarea id="description" name="description" required>{{ giveaway.description }}</textarea>
+		<span class="small">Provide a clear and detailed description of the giveaway.</span>
+	  </div>
+  
+	  <div class="form-group">
+		<label for="image_url">Giveaway Picture URL:</label>
+		<input type="url" id="image_url" name="image_url" value="{{ giveaway.image_url }}" required>
+		<span class="small">Ensure the image URL is valid and the image is at least 800x600 pixels for best display.</span>
+	  </div>
+  
+	  <div class="form-group">
+		<label for="end_date">Giveaway End Time:</label>
+		<input type="datetime-local" id="end_date" name="end_date" 
+			   value="{{ giveaway.end_date.strftime('%Y-%m-%dT%H:%M') }}" required>
+		<small>Set a realistic end time for your giveaway.</small>
+	</div>
 
+	  <div class="form-group">
+		<label for="prize_url">Prize URL:</label>
+		<input type="url" id="prize_url" name="prize_url" value="{{ giveaway.prize_url }}" required>
+	</div>	
+
+	  <button type="submit">Update Giveaway</button>
+	</form>
+  </div>
 </main>
 </body>
 
@@ -62,6 +65,4 @@
 	  <a href="{{ url_for('static', filename='TOS.html') }}">Terms of Service</a>
 	  <a href="{{ url_for('static', filename='privacy.html') }}">Privacy Policy</a>
 	</p>
-</footer>
-
-</html>
+  </footer>
