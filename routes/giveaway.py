@@ -152,28 +152,6 @@ def view_leads(giveaway_id):
     return render_template('giveaway_leads.html', giveaway=giveaway, leads=leads)
 
 
-@giveaway_bp.route('/edit_giveaway/<int:giveaway_id>', methods=['GET', 'POST'])
-@login_required
-def edit_giveaway(giveaway_id):
-    giveaway = Giveaway.query.get_or_404(giveaway_id)
-    if giveaway.creator_id != current_user.id:
-        flash('You do not have permission to edit this giveaway.', 'error')
-        return redirect(url_for('account.usergiveaways'))
-
-    if request.method == 'POST':
-        # Update giveaway details
-        giveaway.title = request.form['title']
-        giveaway.description = request.form['description']
-        giveaway.end_date = datetime.strptime(request.form['end_date'], '%Y-%m-%d')
-        # Add more fields as necessary
-
-        db.session.commit()
-        flash('Giveaway updated successfully.', 'success')
-        return redirect(url_for('account.usergiveaways'))
-
-    return render_template('edit_giveaway.html', giveaway=giveaway)
-
-
 @giveaway_bp.route('/delete_giveaway/<int:giveaway_id>', methods=['POST'])
 @login_required
 def delete_giveaway(giveaway_id):
@@ -196,3 +174,33 @@ def delete_giveaway(giveaway_id):
 
     flash('Giveaway deleted successfully.', 'success')
     return redirect(url_for('account.usergiveaways'))
+
+
+@giveaway_bp.route('/edit_giveaway/<int:giveaway_id>', methods=['GET', 'POST'])
+@login_required
+def edit_giveaway(giveaway_id):
+    giveaway = Giveaway.query.get_or_404(giveaway_id)
+    
+    # Check if the current user is the creator of the giveaway
+    if giveaway.creator_id != current_user.id:
+        flash('You do not have permission to edit this giveaway.', 'error')
+        return redirect(url_for('account.usergiveaways'))
+    
+    # Check if the giveaway has ended
+    if datetime.now() >= giveaway.end_date:
+        flash('This giveaway has ended and cannot be edited. You can create a new giveaway instead.', 'info')
+        return redirect(url_for('giveaway.create_giveaway'))
+
+    if request.method == 'POST':
+        # Update giveaway details
+        giveaway.title = request.form['title']
+        giveaway.description = request.form['description']
+        giveaway.end_date = datetime.strptime(request.form['end_date'], '%Y-%m-%dT%H:%M')
+        giveaway.image_url = request.form['picture']
+        giveaway.prize_url = request.form['prize_url']
+
+        db.session.commit()
+        flash('Giveaway updated successfully.', 'success')
+        return redirect(url_for('account.usergiveaways'))
+    
+    return render_template('edit_giveaway.html', giveaway=giveaway)

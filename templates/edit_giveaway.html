@@ -43,10 +43,16 @@
   
 	  <div class="form-group">
 		<label for="end_date">Giveaway End Time:</label>
-		<input type="datetime-local" id="end_date" name="end_date" value="{{ giveaway.end_date.strftime('%Y-%m-%dT%H:%M') }}" required>
-		<span class="small">Set a realistic end time for your giveaway.</span>
+		<input type="datetime-local" id="end_date" name="end_date" 
+			   value="{{ giveaway.end_date.strftime('%Y-%m-%dT%H:%M') }}" required>
+		<small>Set a realistic end time for your giveaway.</small>
 	  </div>
-  
+
+	  <div class="form-group">
+		<label for="prize_url">Prize URL:</label>
+		<input type="url" id="prize_url" name="prize_url" value="{{ giveaway.prize_url }}" required>
+	</div>	
+
 	  <button type="submit">Update Giveaway</button>
 	</form>
   </div>
