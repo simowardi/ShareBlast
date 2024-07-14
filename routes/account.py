@@ -40,29 +40,32 @@ def usergiveaways():
 @login_required
 def delete_account():
     user = current_user
-
+    
     # Get all giveaways created by the user
     user_giveaways = Giveaway.query.filter_by(creator_id=user.id).all()
-
-    # Delete all participations in the user's giveaways
+    
     for giveaway in user_giveaways:
+        # Delete all participations in this giveaway
         Participation.query.filter_by(giveaway_id=giveaway.id).delete()
-
-    # Delete all participations by the user
+        
+        # Delete the winner for this giveaway
+        Winner.query.filter_by(giveaway_id=giveaway.id).delete()
+    
+    # Delete all participations by the user in other giveaways
     Participation.query.filter_by(user_id=user.id).delete()
-
-    # Delete all winners associated with the user
+    
+    # Delete all winners where the user won
     Winner.query.filter_by(user_id=user.id).delete()
-
-    # Delete all giveaways created by the user
+    
+    # Now it's safe to delete all giveaways created by the user
     Giveaway.query.filter_by(creator_id=user.id).delete()
-
-    # Now delete the user
+    
+    # Finally, delete the user
     db.session.delete(user)
-
+    
     # Commit all changes
     db.session.commit()
-
+    
     logout_user()
     flash('Your account has been successfully deleted.', 'success')
     return redirect(url_for('index'))
