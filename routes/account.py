@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
-from models import db, Giveaway, Participation
+from models import db, Giveaway, Participation, User, winner
 from flask_login import login_required, current_user, logout_user
 from datetime import datetime
 
@@ -22,20 +22,6 @@ def account():
                            prizes_awarded=prizes_awarded)
 
 
-@account_bp.route('/delete_account', methods=['POST'])
-@login_required
-def delete_account():
-    """
-    Deletes the user account, commits the deletion to the database, logs out the user, displays a success message, and redirects to the index page.
-    """
-    user = current_user
-    db.session.delete(user)
-    db.session.commit()
-    logout_user()
-    flash('Your account has been successfully deleted.', 'success')
-    return redirect(url_for('index'))
-
-
 @account_bp.route('/user_giveaways')
 @login_required
 def usergiveaways():
@@ -47,3 +33,28 @@ def usergiveaways():
     for giveaway in user_giveaways:
         print(f"Giveaway ID: {giveaway.id}, Title: {giveaway.title}")  # More detailed debug
     return render_template('usergiveaways.html', user_giveaways=user_giveaways)
+
+
+@account_bp.route('/delete_account', methods=['POST'])
+@login_required
+def delete_account():
+    """
+    Deletes the user account, commits the deletion to the database, logs out the user, displays a success message, and redirects to the index page.
+    """
+    user = current_user
+    
+    # Delete all participations associated with the user
+    Participation.query.filter_by(user_id=user.id).delete()
+
+    # Delete all winners associated with the user
+    Winner.query.filter_by(user_id=user.id).delete()
+
+    # Delete all giveaways created by the user
+    Giveaway.query.filter_by(creator_id=user.id).delete()
+    
+    # Now delete the user
+    db.session.delete(user)
+    db.session.commit()
+    logout_user()
+    flash('Your account has been successfully deleted.', 'success')
+    return redirect(url_for('index'))

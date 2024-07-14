@@ -1,5 +1,6 @@
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from models import db
+from models.user import User
 from models.winner import Winner
 from models.giveaway import Giveaway
 from models.participation import Participation
@@ -144,7 +145,7 @@ def view_leads(giveaway_id):
     if current_user.id != giveaway.creator_id:
         flash('You are not authorized to view the leads for this giveaway.', 'danger')
         return redirect(url_for('giveaway.view_giveaway', giveaway_id=giveaway_id))
-    
+
     participations = Participation.query.filter_by(giveaway_id=giveaway_id).all()
     leads = [(p.user.username, p.user.email) for p in participations]
 
@@ -158,18 +159,18 @@ def edit_giveaway(giveaway_id):
     if giveaway.creator_id != current_user.id:
         flash('You do not have permission to edit this giveaway.', 'error')
         return redirect(url_for('account.usergiveaways'))
-    
+
     if request.method == 'POST':
         # Update giveaway details
         giveaway.title = request.form['title']
         giveaway.description = request.form['description']
         giveaway.end_date = datetime.strptime(request.form['end_date'], '%Y-%m-%d')
         # Add more fields as necessary
-        
+
         db.session.commit()
         flash('Giveaway updated successfully.', 'success')
         return redirect(url_for('account.usergiveaways'))
-    
+
     return render_template('edit_giveaway.html', giveaway=giveaway)
 
 
@@ -177,15 +178,21 @@ def edit_giveaway(giveaway_id):
 @login_required
 def delete_giveaway(giveaway_id):
     giveaway = Giveaway.query.get_or_404(giveaway_id)
-    
+
     # Check if the current user is the creator of the giveaway
     if current_user.id != giveaway.creator_id:
         flash('You do not have permission to delete this giveaway.', 'error')
         return redirect(url_for('account.usergiveaways'))
-    
+
+    # Delete all participations associated with the giveaway
+    Participation.query.filter_by(giveaway_id=giveaway.id).delete()
+
+    # Delete the winner associated with the giveaway (if exists)
+    Winner.query.filter_by(giveaway_id=giveaway.id).delete()
+
     # Delete the giveaway from the database
     db.session.delete(giveaway)
     db.session.commit()
-    
+
     flash('Giveaway deleted successfully.', 'success')
     return redirect(url_for('account.usergiveaways'))
