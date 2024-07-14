@@ -38,12 +38,16 @@ def usergiveaways():
 @account_bp.route('/delete_account', methods=['POST'])
 @login_required
 def delete_account():
-    """
-    Deletes the user account, commits the deletion to the database, logs out the user, displays a success message, and redirects to the index page.
-    """
     user = current_user
-    
-    # Delete all participations associated with the user
+
+    # Get all giveaways created by the user
+    user_giveaways = Giveaway.query.filter_by(creator_id=user.id).all()
+
+    # Delete all participations in the user's giveaways
+    for giveaway in user_giveaways:
+        Participation.query.filter_by(giveaway_id=giveaway.id).delete()
+
+    # Delete all participations by the user
     Participation.query.filter_by(user_id=user.id).delete()
 
     # Delete all winners associated with the user
@@ -51,10 +55,13 @@ def delete_account():
 
     # Delete all giveaways created by the user
     Giveaway.query.filter_by(creator_id=user.id).delete()
-    
+
     # Now delete the user
     db.session.delete(user)
+
+    # Commit all changes
     db.session.commit()
+
     logout_user()
     flash('Your account has been successfully deleted.', 'success')
     return redirect(url_for('index'))
