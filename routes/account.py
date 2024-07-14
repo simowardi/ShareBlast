@@ -5,6 +5,7 @@ from datetime import datetime
 
 account_bp = Blueprint('account', __name__)
 
+
 @account_bp.route('/account')
 @login_required
 def account():
