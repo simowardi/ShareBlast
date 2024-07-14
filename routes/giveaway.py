@@ -196,7 +196,7 @@ def edit_giveaway(giveaway_id):
         giveaway.title = request.form['title']
         giveaway.description = request.form['description']
         giveaway.end_date = datetime.strptime(request.form['end_date'], '%Y-%m-%dT%H:%M')
-        giveaway.image_url = request.form['picture']
+        giveaway.image_url = request.form['image_url']
         giveaway.prize_url = request.form['prize_url']
 
         db.session.commit()
