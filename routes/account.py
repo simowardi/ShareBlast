@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
-from models import db, Giveaway, Participation, User, winner
+from models import db, Giveaway, Participation, User, Winner
 from flask_login import login_required, current_user, logout_user
 from datetime import datetime
 
@@ -47,7 +47,7 @@ def delete_account():
     Participation.query.filter_by(user_id=user.id).delete()
 
     # Delete all winners associated with the user
-    winner.query.filter_by(user_id=user.id).delete()
+    Winner.query.filter_by(user_id=user.id).delete()
 
     # Delete all giveaways created by the user
     Giveaway.query.filter_by(creator_id=user.id).delete()

@@ -8,6 +8,8 @@ db = SQLAlchemy()
 from .user import User
 from .giveaway import Giveaway
 from .participation import Participation
+from .winner import Winner
+
 
 
 # Function to initialize app with SQLAlchemy
